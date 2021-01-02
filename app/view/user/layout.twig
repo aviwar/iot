@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="{{base_url()}}/" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ appName }} - {{ page.title }}</title>
+    <meta name='robots' content='noindex,follow' />
+    <link rel="stylesheet" href="assets/css/packages.min.css">
+    <link rel="stylesheet" href="assets/css/adminlte.css">
+    <link rel="stylesheet" href="assets/css/datatable.packages.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    {% block stylecontent %} {% endblock %}
+</head>
+<body class="hold-transition sidebar-mini" oncontextmenu="return true;">
+
+    <div class="wrapper">
+        {% include 'user/navigation.twig' %}
+
+        {% include 'user/sidebar.twig' %}
+
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0 text-dark">
+                                {{page.title}}
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="container-fluid">
+                    {% include 'flash.twig' %}
+
+                    {% block content %} {% endblock %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/packages.min.js"></script>
+    <script src="assets/js/admin.packages.min.js"></script>
+    <script src="assets/js/app.js"></script>
+	{% block scriptcontent %} {% endblock %}
+</body>
+</html>

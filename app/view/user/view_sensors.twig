@@ -1,0 +1,118 @@
+{% extends 'user/layout.twig' %}
+
+{% block stylecontent %}
+<link rel="stylesheet" href="assets/css/flatpickr.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="form-group row">
+                    <div class="col-sm-2"></div>
+                    <label class="col-sm-2 col-form-label" for="date">
+                        Search By Date
+                    </label>
+                    <div class="col-sm-3">
+                        <input class="form-control datePicker" id="date" placeholder="Select Date" name="date" type="text">
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" type="button" id="searchBtn">Search</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTable">
+                        <thead>
+                            <tr class="info">
+                                <th>#</th>
+                                <th>Sensor 1</th>
+                                <th>Sensor 2</th>
+                                <th>Sensor 3</th>
+                                <th>Sensor 4</th>
+                                <th>Sensor 5</th>
+                                <th>Sensor 6</th>
+                                <th>Sensor 7</th>
+                                <th>Sensor 8</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for sensor in sensors %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ sensor.sensor1 }}</td>
+                                <td>{{ sensor.sensor2 }}</td>
+                                <td>{{ sensor.sensor3 }}</td>
+                                <td>{{ sensor.sensor4 }}</td>
+                                <td>{{ sensor.sensor5 }}</td>
+                                <td>{{ sensor.sensor6 }}</td>
+                                <td>{{ sensor.sensor7 }}</td>
+                                <td>{{ sensor.sensor8 }}</td>
+                                <td>{{ sensor.created_at|date('d-m-Y h:i A') }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scriptcontent %}
+<script src="assets/js/flatpickr.min.js"></script>
+<script>
+$(document).ready(function() {
+    $(".datePicker").flatpickr({
+        defaultDate: new Date(),
+        altInput: true,
+        altFormat: "d-m-Y",
+        dateFormat: "Y-m-d",
+    });
+
+    $("#searchBtn").click(function () {
+        let date = $('#date').val();
+        let url = "{{ path_for('api.getSensors', {'date': 'date'}) }}";
+        url = url.replace('date', date);
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            headers: { 'username': '{{ auth.userName }}' },
+            success: function(response) {
+                buildTableData(response.data);
+            },
+            error: function (error) {
+                dataTable.clear().draw();
+            }
+        });
+    });
+});
+
+function buildTableData(data) {
+    let tbody = '';
+    let rowCount = data.length;
+
+    for(let i=0; i < rowCount; i++) {
+        tbody += '<tr>';
+        tbody += '<td>' + (i+1) + '</td>';
+        tbody += '<td>' + data[i].sensor1 + '</td>';
+        tbody += '<td>' + data[i].sensor2 + '</td>';
+        tbody += '<td>' + data[i].sensor3 + '</td>';
+        tbody += '<td>' + data[i].sensor4 + '</td>';
+        tbody += '<td>' + data[i].sensor5 + '</td>';
+        tbody += '<td>' + data[i].sensor6 + '</td>';
+        tbody += '<td>' + data[i].sensor7 + '</td>';
+        tbody += '<td>' + data[i].sensor8 + '</td>';
+        tbody += '<td>' + data[i].created_at + '</td>';
+        tbody += '</tr>';
+    }
+
+    $('#dataTable tbody').html(tbody);
+}
+</script>
+{% endblock %}

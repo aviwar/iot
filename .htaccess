@@ -1,0 +1,58 @@
+Options -Indexes
+
+## DO NOT REMOVE THIS LINE AND THE LINES BELOW
+# Remove index.php from url
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
+## DO NOT REMOVE THIS LINE AND THE LINES BELOW
+
+# BEGIN Caching
+<ifModule mod_headers.c>
+    # 1 Year
+    <filesMatch "\\.(ico|pdf|jpg|jpeg|png|webp|gif|ttf|otf|woff|woff2|eot|svg)$">
+        Header set Cache-Control "max-age=31536000, public"
+    </filesMatch>
+
+    # 6 Month - css
+    <filesMatch "\\.(css)$">
+        Header set Cache-Control "max-age=15552000, public"
+    </filesMatch>
+
+    # 6 Month - JS
+    <filesMatch "\\.(js)$">
+        Header set Cache-Control "max-age=15552000, private"
+    </filesMatch>
+
+    # Must Revalidate
+    <filesMatch "\\.(html|php)$">
+        Header set Cache-Control "max-age=1, private, must-revalidate"
+    </filesMatch>
+</ifModule>
+# END Caching
+
+# BROWSER CACHING USING EXPIRES HEADERS
+<IfModule mod_expires.c>
+    ExpiresActive On
+
+    # Images
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+
+    # Video
+    ExpiresByType video/mp4 "access plus 1 year"
+    ExpiresByType video/mpeg "access plus 1 year"
+
+    # CSS, JavaScript
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+
+    # Others
+    ExpiresByType application/pdf "access plus 1 month"
+</IfModule>

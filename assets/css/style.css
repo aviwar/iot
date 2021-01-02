@@ -1,0 +1,132 @@
+.hide {
+  display: none;
+}
+
+.bg-cyan {
+  background: #21BFDA;
+}
+.bg-dark-cyan {
+  background: #073640;
+}
+.bg-green {
+  background-color: #66bb6a;
+}
+.bg-grey {
+  background-color: #bdbdbd;
+}
+.btn-cyan {
+  background: #21BFDA;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 600;
+  padding: 7px 20px;
+  border-radius: 0px;
+}
+.btn-cyan:hover {
+  color: #fff;
+  background: #21bfdabd;
+}
+.btn-outline-cyan {
+  border:1px solid #21BFDA;
+  background: #fff;
+  font-size: 16px;
+  color: #21BFDA;
+  font-weight: 600;
+  padding: 7px 20px;
+  border-radius: 0px;
+}
+.btn-outline-cyan:hover {
+  color: #fff;
+  background: #21bfdabd;
+}
+.btn-white {
+  background: #fff;
+  font-size: 16px;
+  color: #21BFDA;
+  font-weight: 600;
+  padding: 7px 20px;
+  border-radius: 0px;
+}
+.btn-white:hover {
+  color: #21BFDA;
+  background: #fff;
+}
+.btn-grey {
+  background: #808080;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 600;
+  padding: 7px 20px;
+  border-radius: 0px;
+}
+.btn-grey:hover {
+  color: #fff;
+  background: #808080;
+}
+.btn-red {
+  background: #dc3545;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 600;
+  padding: 7px 20px;
+  border-radius: 0px;
+}
+.btn-red:hover {
+  color: #fff;
+  background: #dc3545;
+}
+.btn-outline-red {
+  border:1px solid #dc3545;
+  background: #fff;
+  font-size: 16px;
+  color: #dc3545;
+  font-weight: 600;
+  padding: 7px 20px;
+  border-radius: 0px;
+}
+.btn-outline-red:hover {
+  color: #fff;
+  background: #dc3545;
+}
+.btn-green {
+  background: #28a745;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 600;
+  padding: 7px 20px;
+  border-radius: 0px;
+}
+.btn-green:hover {
+  color: #fff;
+  background: #28a745;
+}
+.btn-outline-green {
+  border:1px solid #28a745;
+  background: #fff;
+  font-size: 16px;
+  color: #28a745;
+  font-weight: 600;
+  padding: 7px 20px;
+  border-radius: 0px;
+}
+.btn-outline-green:hover {
+  color: #fff;
+  background: #28a745;
+}
+
+/* Navigation */
+.navbar-dark .navbar-brand {
+  color: #fbe794;
+}
+.nav-login-link {
+  font-size: 18px;
+  color: #fff !important;
+}
+
+/* Login Page */
+.form-signin {
+  width: 100%;
+  max-width: 420px;
+  padding: 15px;
+  margin: auto;
+}

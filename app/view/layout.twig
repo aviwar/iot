@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="{{base_url()}}/" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{ appName }}</title>
+    <meta name="theme-color" content="#fff">
+
+    <link rel="stylesheet" href="assets/css/packages.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    {% block stylecontent %} {% endblock %}
+</head>
+<body oncontextmenu="return true;">
+    {% include 'navigation.twig' %}
+
+    <main role="main">
+        {% block content %} {% endblock %}
+    </main>
+
+    <script src="assets/js/packages.min.js"></script>
+	{% block scriptcontent %}{% endblock %}
+	</body>
+</html>
