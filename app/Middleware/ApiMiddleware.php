@@ -6,7 +6,7 @@ class ApiMiddleware extends Middleware {
     public function __invoke($request, $response, $next) {
         $username = $request->getHeaderLine('username');
         if (empty($username)) {
-            throw new \Exception('Invalid username', 403);
+            throw new \Exception('Invalid username', 400);
         }
 
         $user = $this->container->authRepository->getUserByUsername($username);

@@ -6,7 +6,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 class ApiController extends BaseController
 {
-    public function addSensor(Request $request, Response $response)
+    public function postSensorData(Request $request, Response $response)
     {
         $data = $request->getParsedBody();
         $data['userId'] = $request->getAttribute('userId');
@@ -65,6 +65,58 @@ class ApiController extends BaseController
 
         $responseData['status'] = 'success';
         $responseData['data'] = $deviceData;
+
+        return $response->withJson($responseData, 200);
+    }
+
+    public function postDeviceSerialData(Request $request, Response $response)
+    {
+        $data = $request->getParsedBody();
+        if(empty($data['serialData'])) {
+            throw new \Exception('Invalid serial data', 400);
+        }
+
+        $data['userId'] = $request->getAttribute('userId');
+
+        $this->logger->log('Device Serial data: ' . json_encode($data));
+
+        $serialId = $this->apiRepository->addDeviceSerialData($data);
+        if (empty($serialId)) {
+            throw new \Exception('Unable to send serial data');
+        }
+
+        $responseData['status'] = 'success';
+        $responseData['message'] = 'Serial data sent!';
+
+        return $response->withJson($responseData, 201);
+    }
+
+    public function getDeviceSerialData(Request $request, Response $response)
+    {
+        $userId = $request->getAttribute('userId');
+        $serialData = $this->apiRepository->getDeviceSerialData($userId);
+        if (empty($serialData)) {
+            throw new \Exception('No data found!', 404);
+        }
+
+        $this->apiRepository->updateSerialDataStatus($serialData);
+
+        $responseData['status'] = 'success';
+        $responseData['data'] = $serialData;
+
+        return $response->withJson($responseData, 200);
+    }
+
+    public function postResetData(Request $request, Response $response)
+    {
+        $userId = $request->getAttribute('userId');
+        $isDeleted = $this->apiRepository->resetSensorData($userId);
+        if (empty($isDeleted)) {
+            throw new \Exception('Unable to reset data!', 404);
+        }
+
+        $responseData['status'] = 'success';
+        $responseData['message'] = 'Sensor Data resetted';
 
         return $response->withJson($responseData, 200);
     }

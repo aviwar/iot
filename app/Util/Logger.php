@@ -20,11 +20,11 @@ class Logger
         $this->formattedLog($message);
     }
 
-    public function logException(\Exception $e)
+    /*public function logException(\Exception $e)
     {
         $this->formattedLog($e->getMessage());
         $this->formattedLog($e->getTraceAsString());
-    }
+    }*/
 
     private function formattedLog($message)
     {

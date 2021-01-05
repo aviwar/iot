@@ -57,6 +57,15 @@ class ApiRepository
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function resetSensorData($userId)
+    {
+        $dbConn = $this->db->getConnection();
+        $query = $dbConn->prepare('DELETE FROM `sensor` WHERE user_id=:userId');
+        $query->bindValue(':userId', $userId, PDO::PARAM_INT);
+
+        return $query->execute();
+    }
+
     public function addDevice($data)
     {
         $sql = 'INSERT INTO device (';
@@ -77,4 +86,49 @@ class ApiRepository
 
         return $query->execute($data);
     }
+
+    public function addDeviceSerialData($data)
+    {
+        $dbConn = $this->db->getConnection();
+        $query = $dbConn->prepare(
+            "INSERT INTO device_serial_data(user_id, serial_data)
+            VALUES (:userId, :serialData)"
+        );
+        $query->bindValue(':userId', $data['userId'], PDO::PARAM_INT);
+        $query->bindValue(':serialData', $data['serialData'] ?? '', PDO::PARAM_STR);
+        $query->execute();
+
+        return $dbConn->lastInsertId();
+    }
+
+    public function getDeviceSerialData($userId)
+    {
+        $dbConn = $this->db->getConnection();
+
+        $query = $dbConn->prepare(
+            'SELECT id, user_id, serial_data FROM device_serial_data
+            WHERE user_id=:userId AND is_published=0'
+        );
+        $query->bindValue(':userId', $userId, PDO::PARAM_INT);
+        $query->execute();
+
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function updateSerialDataStatus($data)
+    {
+        $id = '';
+        foreach ($data as $row) {
+            $id .= $row['id'] . ',';
+        }
+
+        $id = rtrim($id, ',');
+        $dbConn = $this->db->getConnection();
+        $sql = "UPDATE device_serial_data SET is_published=1 WHERE id IN ($id)";
+        $query = $dbConn->prepare($sql);
+
+        return $query->execute();
+    }
+
+
 }

@@ -38,8 +38,6 @@ $(document).ready(function() {
         var data = {};
         data[$(this).attr('name')] = $(this).is(':checked') ? 1 : 0;
 
-        console.log(data);
-
         $.ajax({
             type: 'POST',
             url: "{{ path_for('api.updateDeviceStatus') }}",

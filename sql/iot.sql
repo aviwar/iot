@@ -33,19 +33,19 @@ CREATE TABLE `sensor` (
 CREATE TABLE `device` (
   `device_id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_id` INT(11) NOT NULL,
-  `device1` BOOLEAN NOT NULL DEFAULT 0,
-  `device2` BOOLEAN NOT NULL DEFAULT 0,
-  `device3` BOOLEAN NOT NULL DEFAULT 0,
-  `device4` BOOLEAN NOT NULL DEFAULT 0,
-  `device5` BOOLEAN NOT NULL DEFAULT 0,
-  `device6` BOOLEAN NOT NULL DEFAULT 0,
+  `device1` TINYINT(1) NOT NULL DEFAULT 0,
+  `device2` TINYINT(1) NOT NULL DEFAULT 0,
+  `device3` TINYINT(1) NOT NULL DEFAULT 0,
+  `device4` TINYINT(1) NOT NULL DEFAULT 0,
+  `device5` TINYINT(1) NOT NULL DEFAULT 0,
+  `device6` TINYINT(1) NOT NULL DEFAULT 0,
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`device_id`),
   UNIQUE KEY `unique_device` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE `sensor_setting` (
+/*CREATE TABLE `sensor_setting` (
   `sensor_setting_id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_id` INT(11) NOT NULL,
   `sensor_count` INT(11) DEFAULT NULL,
@@ -77,4 +77,14 @@ CREATE TABLE `device_setting` (
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`device_setting_id`),
   UNIQUE KEY `unique_device_setting` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;*/
+
+CREATE TABLE `device_serial_data` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `user_id` INT(11) NOT NULL,
+  `serial_data` TEXT,
+  `is_published` TINYINT(1) NOT NULL DEFAULT 0,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

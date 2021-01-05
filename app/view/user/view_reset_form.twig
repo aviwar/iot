@@ -1,0 +1,53 @@
+{% extends 'user/layout.twig' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card card-info">
+            <div class="card-body">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="serialData">
+                        Are you sure, you want to reset data?
+                    </label>
+                    <div class="col-sm-2">
+                        <button id="cancelBtn" class="btn btn-outline-warning" type="button">Cancel</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button id="resetBtn" class="btn btn-outline-danger" type="button">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scriptcontent %}
+<script>
+$(document).ready(function() {
+    $("#cancelBtn").click(function() {
+        redirectToHome();
+    });
+
+    $("#resetBtn").click(function() {
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ path_for('api.resetData') }}",
+            headers: { 'username': '{{ auth.userName }}' },
+            success: function(response) {
+                alert(response.message);
+                redirectToHome();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    })
+
+    function redirectToHome() {
+        window.location.href = "{{ path_for('home') }}";
+    }
+
+});
+</script>
+{% endblock %}

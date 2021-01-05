@@ -6,118 +6,191 @@
 	},
 	"item": [
 		{
-			"name": "sensors",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "sensor1",
-							"value": "123",
-							"type": "text"
+			"name": "Sensors",
+			"item": [
+				{
+					"name": "sensors",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "sensor1",
+									"value": "123",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/sensors",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"sensors"
+							]
 						}
-					],
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{api_url}}/sensors",
-					"host": [
-						"{{api_url}}"
-					],
-					"path": [
-						"sensors"
-					]
+				{
+					"name": "sensors",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sensor1\": \"123\",\r\n    \"sensor2\": \"456\",\r\n    \"sensor3\": 1278\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/sensors/21-12-2020",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"sensors",
+								"21-12-2020"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "sensors",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true,
-				"disabledSystemHeaders": {}
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"sensor1\": \"123\",\r\n    \"sensor2\": \"456\",\r\n    \"sensor3\": 1278\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Devices",
+			"item": [
+				{
+					"name": "devices",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "javascript"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/devices",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"devices"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{api_url}}/sensors/21-12-2020",
-					"host": [
-						"{{api_url}}"
-					],
-					"path": [
-						"sensors",
-						"21-12-2020"
-					]
+				{
+					"name": "devices",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"device2\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/devices",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"devices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Serial Data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/devices/serialData",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"devices",
+								"serialData"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Serial Data",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "serialData",
+									"value": "test data",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/devices/serialData",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"devices",
+								"serialData"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "devices",
+			"name": "Reset Sensor Data",
 			"request": {
-				"method": "POST",
+				"method": "DELETE",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "javascript"
-						}
-					}
-				},
 				"url": {
-					"raw": "{{api_url}}/devices",
+					"raw": "{{api_url}}/reset",
 					"host": [
 						"{{api_url}}"
 					],
 					"path": [
-						"devices"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "devices",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"device2\": true\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{api_url}}/devices",
-					"host": [
-						"{{api_url}}"
-					],
-					"path": [
-						"devices"
+						"reset"
 					]
 				}
 			},

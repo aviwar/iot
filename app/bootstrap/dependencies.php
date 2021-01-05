@@ -91,7 +91,7 @@ $container['errorHandler'] = function ($container) {
         $errorMessage = $exception->getMessage();
         $errorCode = !empty($exception->getCode()) ? $exception->getCode() : 500;
         $logger = $container->get('logger');
-        $logger->logException($exception);
+        $logger->log($errorMessage);
         $data = [
             "status" => "error",
             "message" => $errorMessage

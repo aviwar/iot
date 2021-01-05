@@ -42,10 +42,13 @@ class UserController extends BaseController
     {
         $data['page']['title'] = 'Send Serial Data to Device';
 
-        // $userId = $request->getAttribute('userId');
+        return $this->view->render($response, 'user/view_device_data_form.twig', $data);
+    }
 
-        // $data['sensors'] = $this->userRepository->getSensorByUserId($userId);
+    public function viewReset(Request $request, Response $response)
+    {
+        $data['page']['title'] = 'Reset Sensor Data';
 
-        return $this->view->render($response, 'user/view_sensors.twig', $data);
+        return $this->view->render($response, 'user/view_reset_form.twig', $data);
     }
 }
