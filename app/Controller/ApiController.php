@@ -107,6 +107,62 @@ class ApiController extends BaseController
         return $response->withJson($responseData, 200);
     }
 
+    public function getLocationData(Request $request, Response $response)
+    {
+        $userId = $request->getAttribute('userId');
+        $date = $request->getAttribute('date');
+        $locationData = $this->apiRepository->getLocationData($userId, $date);
+        if (empty($locationData)) {
+            throw new \Exception('No data found!', 404);
+        }
+
+        $responseData['status'] = 'success';
+        $responseData['data'] = $locationData;
+
+        return $response->withJson($responseData, 200);
+    }
+
+    public function postLocationData(Request $request, Response $response)
+    {
+        $data = $request->getParsedBody();
+        if(empty($data['longitude']) || empty($data['latitude'])) {
+            throw new \Exception('Invalid data', 400);
+        }
+
+        $data['userId'] = $request->getAttribute('userId');
+        // $data['address'] = $this->getAddress($data['latitude'], $data['longitude']);
+        $this->logger->log('Location data: ' . json_encode($data));
+
+        $locationId = $this->apiRepository->addLocationData($data);
+        if (empty($locationId)) {
+            throw new \Exception('Unable to add location data');
+        }
+
+        $responseData['status'] = 'success';
+        $responseData['message'] = 'Location data added!';
+
+        return $response->withJson($responseData, 201);
+    }
+
+    private function getAddress($latitude, $longitude)
+    {
+        $url = 'http://maps.googleapis.com/maps/api/geocode/json';
+        $apiUrl = sprintf('%s?latlng=%s,%s&sensor=false', $url, $latitude, $longitude);
+
+        $json = @file_get_contents($apiUrl);
+        $data = json_decode($json);
+
+        $status = $data->status;
+        if($status=="OK")
+        {
+            return $data->results[0]->formatted_address;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     public function postResetData(Request $request, Response $response)
     {
         $userId = $request->getAttribute('userId');

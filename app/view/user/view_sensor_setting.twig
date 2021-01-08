@@ -1,0 +1,82 @@
+{% extends 'user/layout.twig' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card card-info">
+        <form action="{{ path_for('setting.sensor') }}" method="post" autocomplete="off" role="form" class="form-horizontal">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="sensorCount">
+                            Sensor Count
+                        </label>
+                        <div class="col-sm-6">
+                            <input class="form-control" id="sensorCount" placeholder="Sensor Count  (Max 8)" name="sensor_count" type="number" value="{{ setting.sensor_count}}">
+                            <div class="invalid-feedback">Sensor count must be 1-8</div>
+                        </div>
+                    </div>
+
+                    {% for i in 1..8 %}
+                        {% set sensorName = "sensor" ~ i ~ "_name" %}
+                        {% set sensorNameValue = setting[sensorName] %}
+
+                    <div class="form-group row {{ (i <= setting.sensor_count) ? '' : 'hide'}}">
+                        <label class="col-sm-3 col-form-label" for="{{sensorName}}">
+                            Sensor {{i}} Name
+                        </label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" placeholder="Sensor Name" id="{{sensorName}}" name="{{sensorName}}" value="{{sensorNameValue}}"
+                            {{ (i <= setting.sensor_count) ? '' : 'disabled="disabled"'}}
+                            >
+                        </div>
+                    </div>
+
+                    {% endfor %}
+
+                    <div class="form-group row">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-3">
+                            <button class="btn btn-primary" type="submit" id="submitBtn">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scriptcontent %}
+<script>
+$(document).ready(function() {
+    $("#sensorCount").on("keyup", function() {
+        let sensorCount = $("#sensorCount").val();
+
+        if (sensorCount == 0 || sensorCount > 8) {
+            $('#sensorCount').addClass('is-invalid');
+            return false;
+        } else {
+            $('#sensorCount').removeClass('is-invalid');
+        }
+
+        for(let i=1; i <= 8; i++) {
+            let sensorId = 'sensor' + i + '_name';
+            if (i <= sensorCount) {
+                $('#' + sensorId).prop("disabled", false).parent().parent().removeClass('hide');
+            } else {
+                $('#' + sensorId).prop("disabled", true).parent().parent().addClass('hide');
+            }
+        }
+    });
+
+    $("#submitBtn").click(function(e) {
+        let sensorCount = $("#sensorCount").val();
+
+        if (sensorCount === '' || sensorCount == 0 || sensorCount > 8) {
+            $('#sensorCount').addClass('is-invalid');
+            return false;
+        }
+    })
+});
+</script>
+{% endblock %}

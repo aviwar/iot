@@ -8,7 +8,7 @@
     </ul>
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-            <span class="nav-link">Welcome {{ auth.userName }}</span>
+            <span class="nav-link">{{ auth.userName }}</span>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ path_for('logout') }}">

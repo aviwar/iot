@@ -180,6 +180,78 @@
 			]
 		},
 		{
+			"name": "Locations",
+			"item": [
+				{
+					"name": "Add Location",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "longitude",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "latitude",
+									"value": "321",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/locations",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Location",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "longitude",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "latitude",
+									"value": "321",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/locations",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"locations"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Reset Sensor Data",
 			"request": {
 				"method": "DELETE",

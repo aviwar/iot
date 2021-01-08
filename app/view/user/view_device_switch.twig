@@ -8,15 +8,19 @@
 <div class="row">
     <div class="col-12">
         <div class="card-group text-center">
-            {% for i in 1..deviceCount %}
+            {% for i in 1..setting.device_count %}
 
-                {% set deviceName = "device" ~ i %}
-                {% set deviceStatus = device[deviceName] %}
+                {% set deviceName = "device" ~ i ~ "_name" %}
+
+                {% set deviceNameValue = setting[deviceName] is empty ? "Device " ~ i : setting[deviceName] %}
+
+                {% set deviceSwitchName = "device" ~ i %}
+                {% set deviceStatus = device[deviceSwitchName] %}
 
             <div class="card">
-                <div class="card-header">Device {{i}}</div>
+                <div class="card-header">{{deviceNameValue}}</div>
                 <div class="card-body">
-                    <input type="checkbox" id="{{deviceName}}" name="{{deviceName}}"
+                    <input type="checkbox" id="{{deviceSwitchName}}" name="{{deviceSwitchName}}"
                         data-toggle="toggle" data-size="large"
                         data-on="ON" data-off="OFF" data-onstyle="success"
                         {{ deviceStatus ? 'checked' : ''}}
@@ -48,11 +52,9 @@ $(document).ready(function() {
             },
             error: function (error) {
                 console.log(error);
-                // dataTable.clear().draw();
             }
         });
     })
-
 });
 </script>
 {% endblock %}

@@ -1,6 +1,5 @@
 <aside class="main-sidebar sidebar-light-info elevation-4">
     <a class="brand-link" href="{{ path_for('home') }}">
-        <!-- <img alt="{{ appName }} Logo" class="brand-image img-circle elevation-3" src="https://assets.upsc120.com/images/{{appName|lower}}/brand-logo.png" style="opacity: .8"> -->
         <span class="brand-text font-weight-light">{{ appName }}</span>
     </a>
     <div class="sidebar">
@@ -12,24 +11,18 @@
                         <p>Home</p>
                     </a>
                 </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="#">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path_for('title') }}">
                         <i class="nav-icon far fa-edit"></i>
                         <p>Title Update</p>
                     </a>
-                </li> -->
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path_for('sensors') }}">
                         <i class="nav-icon fas fa-table"></i>
                         <p>View IOT Data</p>
                     </a>
                 </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="nav-icon far fa-edit"></i>
-                        <p>Mobile Number Update</p>
-                    </a>
-                </li> -->
                 <li class="nav-item has-treeview menu-open">
                     <a class="nav-link" href="#">
                         <i class="nav-icon fas fa-tablet-alt"></i>
@@ -53,19 +46,19 @@
                         </li>
                     </ul>
                 </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="#">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path_for('locations') }}">
                         <i class="nav-icon fas fa-map-marker-alt"></i>
                         <p>Location Details</p>
                     </a>
-                </li> -->
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path_for('reset') }}">
                         <i class="nav-icon fas fa-undo"></i>
                         <p>Reset Sensor Data</p>
                     </a>
                 </li>
-                <!-- <li class="nav-item has-treeview menu-open">
+                <li class="nav-item has-treeview menu-open">
                     <a class="nav-link" href="#">
                         <i class="nav-icon fas fa-cog"></i>
                         <p>
@@ -75,37 +68,18 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ path_for('setting.sensor') }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Set Number of Sensors</p>
+                                <p>Sensors</p>
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
+                        </li><li class="nav-item">
+                            <a class="nav-link" href="{{ path_for('setting.device') }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Edit Sensor Names</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Set Number of Devices</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Edit Device Names</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Enable GSM/GPS</p>
+                                <p>Devices</p>
                             </a>
                         </li>
                     </ul>
-                </li> -->
+                </li>
             </ul>
         </nav>
     </div>

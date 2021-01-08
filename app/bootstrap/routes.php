@@ -16,13 +16,22 @@ $app->group('', function() use ($app) {
 
     $app->get('/sensors', 'userController:viewSensorList')->setName('sensors');
 
+    $app->get('/title', 'userController:viewProjectTitle')->setName('title');
+    $app->post('/title', 'userController:updateProjectTitle');
+
     /* Device */
     $app->get('/device/switch', 'userController:viewDeviceSwitch')->setName('device.switch');
     $app->get('/device/serialData', 'userController:viewDeviceSerialData')->setName('device.serialData');
 
+    $app->get('/locations', 'userController:viewLocation')->setName('locations');
+
 
     /* settings */
-    $app->get('/settings/sensorcount', 'userController:viewSensorCount')->setName('setting.sensorcount');
+    $app->get('/settings/sensor', 'userController:viewSensorSetting')->setName('setting.sensor');
+    $app->post('/settings/sensor', 'userController:updateSensorSetting');
+
+    $app->get('/settings/device', 'userController:viewDeviceSetting')->setName('setting.device');
+    $app->post('/settings/device', 'userController:updateDeviceSetting');
 
     $app->get('/reset', 'userController:viewReset')->setName('reset');
 
@@ -39,6 +48,11 @@ $app->group('/api', function() use ($app) {
 
     $app->get('/devices/serialData', 'apiController:getDeviceSerialData');
     $app->post('/devices/serialData', 'apiController:postDeviceSerialData')->setName('api.sendDeviceSerialData');
+
+    $app->get(
+        '/locations[/{date}]', 'apiController:getLocationData'
+    )->setName('api.getLocations');
+    $app->post('/locations', 'apiController:postLocationData');
 
     $app->delete('/reset', 'apiController:postResetData')->setName('api.resetData');
 

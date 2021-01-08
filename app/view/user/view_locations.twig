@@ -27,32 +27,18 @@
                     <table class="table table-striped table-bordered table-hover" id="dataTable">
                         <thead>
                             <tr class="info">
-                                <th>#</th>
-
-                                {% for i in 1..setting.sensor_count %}
-                                    {% set sensorName = "sensor" ~ i ~ "_name" %}
-
-                                    {% set sensorNameValue = setting[sensorName] is empty ? "Sensor " ~ i : setting[sensorName] %}
-
-                                <th>{{sensorNameValue}}</th>
-
-                                {% endfor %}
-
                                 <th>Date & Time</th>
+                                <th>Longitude</th>
+                                <th>Latitude</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for sensor in sensors %}
-                                <tr>
-                                    <td>{{ loop.index }}</td>
-                                    {% for i in 1..setting.sensor_count %}
-                                        {% set sensorName = "sensor" ~ i  %}
-
-                                        <td>{{sensor[sensorName]}}</td>
-
-                                    {% endfor %}
-                                    <td>{{ sensor.created_at }}</td>
-                                </tr>
+                            {% for location in locations %}
+                            <tr>
+                                <td>{{ location.created_at }}</td>
+                                <td>{{ location.longitude }}</td>
+                                <td>{{ location.latitude }}</td>
+                            </tr>
                             {% endfor %}
                         </tbody>
                     </table>
@@ -76,7 +62,7 @@ $(document).ready(function() {
 
     $("#filterBtn").click(function () {
         let date = $('#date').val();
-        let url = "{{ path_for('api.getSensors', {'date': 'date'}) }}";
+        let url = "{{ path_for('api.getLocations', {'date': 'date'}) }}";
         url = url.replace('date', date);
 
         $.ajax({
@@ -99,14 +85,9 @@ function buildTableData(data) {
 
     for(let i=0; i < rowCount; i++) {
         tbody += '<tr>';
-        tbody += '<td>' + (i+1) + '</td>';
-
-        for (let j=1; j <= {{setting.sensor_count}}; j++) {
-            let sensorName = 'sensor' + j;
-            tbody += '<td>' + data[i][sensorName] + '</td>';
-        }
-
         tbody += '<td>' + data[i].created_at + '</td>';
+        tbody += '<td>' + data[i].longitude + '</td>';
+        tbody += '<td>' + data[i].latitude + '</td>';
         tbody += '</tr>';
     }
 

@@ -1,0 +1,82 @@
+{% extends 'user/layout.twig' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card card-info">
+        <form action="{{ path_for('setting.device') }}" method="post" autocomplete="off" role="form" class="form-horizontal">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="deviceCount">
+                            Device Count
+                        </label>
+                        <div class="col-sm-6">
+                            <input class="form-control" id="deviceCount" placeholder="Device Count  (Max 6)" name="device_count" type="number" value="{{ setting.device_count}}">
+                            <div class="invalid-feedback">Device count must be 1-6</div>
+                        </div>
+                    </div>
+
+                    {% for i in 1..6 %}
+                        {% set deviceName = "device" ~ i ~ "_name" %}
+                        {% set deviceNameValue = setting[deviceName] %}
+
+                    <div class="form-group row {{ (i <= setting.device_count) ? '' : 'hide'}}">
+                        <label class="col-sm-3 col-form-label" for="{{deviceName}}">
+                            Device {{i}} Name
+                        </label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" placeholder="Device Name" id="{{deviceName}}" name="{{deviceName}}" value="{{deviceNameValue}}"
+                            {{ (i <= setting.device_count) ? '' : 'disabled="disabled"'}}
+                            >
+                        </div>
+                    </div>
+
+                    {% endfor %}
+
+                    <div class="form-group row">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-3">
+                            <button class="btn btn-primary" type="submit" id="submitBtn">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scriptcontent %}
+<script>
+$(document).ready(function() {
+    $("#deviceCount").on("keyup", function() {
+        let deviceCount = $("#deviceCount").val();
+
+        if (deviceCount == 0 || deviceCount > 6) {
+            $('#deviceCount').addClass('is-invalid');
+            return false;
+        } else {
+            $('#deviceCount').removeClass('is-invalid');
+        }
+
+        for(let i=1; i <= 6; i++) {
+            let deviceId = 'device' + i + '_name';
+            if (i <= deviceCount) {
+                $('#' + deviceId).prop("disabled", false).parent().parent().removeClass('hide');
+            } else {
+                $('#' + deviceId).prop("disabled", true).parent().parent().addClass('hide');
+            }
+        }
+    });
+
+    $("#submitBtn").click(function(e) {
+        let deviceCount = $("#deviceCount").val();
+
+        if (deviceCount === '' || deviceCount == 0 || deviceCount > 8) {
+            $('#deviceCount').addClass('is-invalid');
+            return false;
+        }
+    })
+});
+</script>
+{% endblock %}

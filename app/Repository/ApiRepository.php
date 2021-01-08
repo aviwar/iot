@@ -130,5 +130,35 @@ class ApiRepository
         return $query->execute();
     }
 
+    public function addLocationData($data)
+    {
+        $dbConn = $this->db->getConnection();
+        $query = $dbConn->prepare(
+            "INSERT INTO location(user_id, longitude, latitude)
+            VALUES (:userId, :longitude, :latitude)"
+        );
+        $query->bindValue(':userId', $data['userId'], PDO::PARAM_INT);
+        $query->bindValue(':longitude', $data['longitude'], PDO::PARAM_STR);
+        $query->bindValue(':latitude', $data['latitude'], PDO::PARAM_STR);
+        $query->execute();
 
+        return $dbConn->lastInsertId();
+    }
+
+    public function getLocationData($userId, $date)
+    {
+        $dbConn = $this->db->getConnection();
+        $data['userId'] = $userId;
+
+        $sql = 'SELECT * FROM location WHERE user_id=:userId';
+        if (!empty($date)) {
+            $sql .= ' AND DATE(created_at)=:date';
+            $data['date'] = $date;
+        }
+
+        $query = $dbConn->prepare($sql);
+        $query->execute($data);
+
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
