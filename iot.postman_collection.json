@@ -14,14 +14,8 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "sensor1",
-									"value": "123",
-									"type": "text"
-								}
-							],
+							"mode": "raw",
+							"raw": "{\r\n    \"sensor1\": \"1\",\r\n    \"sensor2\": \"2\",\r\n    \"sensor3\": \"3\",\r\n    \"sensor4\": \"4\",\r\n    \"sensor5\": \"\",\r\n    \"sensor6\": \"\",\r\n    \"sensor7\": \"\",\r\n    \"sensor8\": \"\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -43,29 +37,18 @@
 				{
 					"name": "sensors",
 					"protocolProfileBehavior": {
-						"disableBodyPruning": true,
 						"disabledSystemHeaders": {}
 					},
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"sensor1\": \"123\",\r\n    \"sensor2\": \"456\",\r\n    \"sensor3\": 1278\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "{{api_url}}/sensors/21-12-2020",
+							"raw": "{{api_url}}/sensors",
 							"host": [
 								"{{api_url}}"
 							],
 							"path": [
-								"sensors",
-								"21-12-2020"
+								"sensors"
 							]
 						}
 					},
@@ -192,12 +175,12 @@
 							"formdata": [
 								{
 									"key": "longitude",
-									"value": "123",
+									"value": "-94.420307",
 									"type": "text"
 								},
 								{
 									"key": "latitude",
-									"value": "321",
+									"value": "44.968046",
 									"type": "text"
 								}
 							]
@@ -238,12 +221,13 @@
 							]
 						},
 						"url": {
-							"raw": "{{api_url}}/locations",
+							"raw": "{{api_url}}/locations/2021-01-05",
 							"host": [
 								"{{api_url}}"
 							],
 							"path": [
-								"locations"
+								"locations",
+								"2021-01-05"
 							]
 						}
 					},
@@ -263,6 +247,44 @@
 					],
 					"path": [
 						"reset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Auth User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "iotuser001",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "iotuser001",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api_url}}/auth/user",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"auth",
+						"user"
 					]
 				}
 			},

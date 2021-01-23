@@ -19,14 +19,4 @@ class Config
     {
         return $this->config['app_log'];
     }
-
-    public function getPageLimit()
-    {
-        return $this->config['page_limit'];
-    }
-
-    public function getSupportMailId()
-    {
-        return $this->config['email']['supportMailId'];
-    }
 }

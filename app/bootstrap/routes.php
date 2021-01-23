@@ -57,3 +57,6 @@ $app->group('/api', function() use ($app) {
     $app->delete('/reset', 'apiController:postResetData')->setName('api.resetData');
 
 })->add(new ApiMiddleware($container));
+
+// Authorize user for mobile app
+$app->post('/api/auth/user', 'authController:authorizeUser');

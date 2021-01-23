@@ -1,3 +1,5 @@
+#ALTER TABLE `user` ADD `project_title` TEXT NULL AFTER `role`;
+
 CREATE TABLE `user` (
   `user_id` INT(11) NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(50) NOT NULL,
@@ -5,6 +7,7 @@ CREATE TABLE `user` (
   `email` VARCHAR(100) DEFAULT NULL,
   `mobile` VARCHAR(25) DEFAULT NULL,
   `role` VARCHAR(25) DEFAULT NULL,
+  `project_title` TEXT NULL,
   `auth_token` VARCHAR(64) DEFAULT NULL,
   `forgot_pass_token` VARCHAR(64) DEFAULT NULL,
   `is_active` TINYINT(1) NOT NULL DEFAULT 1,
@@ -13,8 +16,6 @@ CREATE TABLE `user` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `unique_user` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-ALTER TABLE `user` ADD `project_title` TEXT NULL AFTER `role`;
 
 CREATE TABLE `sensor` (
   `sensor_id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -56,8 +57,6 @@ CREATE TABLE `device_serial_data` (
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
----
 
 CREATE TABLE `location` (
   `location_id` INT(11) NOT NULL AUTO_INCREMENT,

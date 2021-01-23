@@ -31,18 +31,6 @@ class Authenticator
         return isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0;
     }
 
-    // public function getUserEmail() {
-    //     return (isset($_SESSION['email'])?$_SESSION['email']:'');
-    // }
-
-    // public function getUserRole() {
-    //     return (isset($_SESSION['role'])?$_SESSION['role']:'');
-    // }
-
-    // public function getUserEnrolled() {
-    //     return (isset($_SESSION['isUserEnrolled'])?$_SESSION['isUserEnrolled']:false);
-    // }
-
     public function getUserAuthToken()
     {
         return isset($_SESSION['token']) ? $_SESSION['token'] : '';
@@ -68,8 +56,6 @@ class Authenticator
 
         $_SESSION['user_id'] = $userId;
         $_SESSION['username'] = $user['username'];
-        // $_SESSION['role'] = $user['role'];
-        // $_SESSION['email'] = $user['email'];
         $_SESSION['token'] = $uniqId;
     }
 

@@ -36,7 +36,8 @@ class UserRepository
     public function getSensorByUserId(int $userId)
     {
         $dbConn = $this->db->getConnection();
-        $query = $dbConn->prepare('SELECT * FROM sensor WHERE user_id=:userId');
+        $sql = 'SELECT * FROM sensor WHERE user_id=:userId ORDER BY created_at DESC';
+        $query = $dbConn->prepare($sql);
         $query->bindValue(':userId', $userId, PDO::PARAM_INT);
         $query->execute();
 
