@@ -31,7 +31,9 @@ class AuthRepository
     public function getUserByUsername(string $username)
     {
         $dbConn = $this->db->getConnection();
-        $query = $dbConn->prepare('SELECT user_id, username FROM user WHERE username=:username');
+        $sql =
+            'SELECT user_id, username, mobile FROM user WHERE username=:username';
+        $query = $dbConn->prepare($sql);
         $query->bindValue(':username', $username, PDO::PARAM_STR);
         $query->execute();
 

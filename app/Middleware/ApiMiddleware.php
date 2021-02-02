@@ -2,8 +2,10 @@
 
 namespace Iot\Middleware;
 
-class ApiMiddleware extends Middleware {
-    public function __invoke($request, $response, $next) {
+class ApiMiddleware extends Middleware
+{
+    public function __invoke($request, $response, $next)
+    {
         $username = $request->getHeaderLine('username');
         if (empty($username)) {
             throw new \Exception('Invalid username', 400);
@@ -16,6 +18,7 @@ class ApiMiddleware extends Middleware {
 
         $request = $request->withAttribute('userName', $user['username']);
         $request = $request->withAttribute('userId', $user['user_id']);
+        $request = $request->withAttribute('mobileNumber', $user['mobile']);
 
         $response = $next($request, $response);
 

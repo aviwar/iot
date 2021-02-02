@@ -10,6 +10,7 @@ class ApiController extends BaseController
     {
         $data = $request->getParsedBody();
         $data['userId'] = $request->getAttribute('userId');
+        $mobileNumber = $request->getAttribute('mobileNumber');
 
         $this->logger->log('Sensor data: ' . json_encode($data));
 
@@ -18,10 +19,26 @@ class ApiController extends BaseController
             throw new \Exception('Unable to add sensor data');
         }
 
+        if (!empty($mobileNumber)) {
+            $this->sendSensorDataSms($mobileNumber, $data);
+        }
+
         $responseData['status'] = 'success';
         $responseData['message'] = 'Sensor data added.';
 
         return $response->withJson($responseData, 201);
+    }
+
+    private function sendSensorDataSms($mobileNumber, $sensorData)
+    {
+        unset($sensorData['userId']);
+
+        $mobileNumbers = [$mobileNumber];
+        $message = json_encode($sensorData);
+
+        $smsResponse = $this->sms->sendSms($mobileNumbers, $message);
+
+        $this->logger->log('SMS Response: ' . json_encode($smsResponse));
     }
 
     public function getSensorData(Request $request, Response $response)
@@ -72,7 +89,7 @@ class ApiController extends BaseController
     public function postDeviceSerialData(Request $request, Response $response)
     {
         $data = $request->getParsedBody();
-        if(empty($data['serialData'])) {
+        if (empty($data['serialData'])) {
             throw new \Exception('Invalid serial data', 400);
         }
 
@@ -125,7 +142,7 @@ class ApiController extends BaseController
     public function postLocationData(Request $request, Response $response)
     {
         $data = $request->getParsedBody();
-        if(empty($data['longitude']) || empty($data['latitude'])) {
+        if (empty($data['longitude']) || empty($data['latitude'])) {
             throw new \Exception('Invalid data', 400);
         }
 
@@ -147,18 +164,20 @@ class ApiController extends BaseController
     private function getAddress($latitude, $longitude)
     {
         $url = 'http://maps.googleapis.com/maps/api/geocode/json';
-        $apiUrl = sprintf('%s?latlng=%s,%s&sensor=false', $url, $latitude, $longitude);
+        $apiUrl = sprintf(
+            '%s?latlng=%s,%s&sensor=false',
+            $url,
+            $latitude,
+            $longitude
+        );
 
         $json = @file_get_contents($apiUrl);
         $data = json_decode($json);
 
         $status = $data->status;
-        if($status=="OK")
-        {
+        if ($status == 'OK') {
             return $data->results[0]->formatted_address;
-        }
-        else
-        {
+        } else {
             return null;
         }
     }

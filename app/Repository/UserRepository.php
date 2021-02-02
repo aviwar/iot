@@ -16,7 +16,9 @@ class UserRepository
     public function getProjectTitleByUserId(int $userId)
     {
         $dbConn = $this->db->getConnection();
-        $query = $dbConn->prepare('SELECT project_title FROM user WHERE user_id=:userId');
+        $query = $dbConn->prepare(
+            'SELECT project_title FROM user WHERE user_id=:userId'
+        );
         $query->bindValue(':userId', $userId, PDO::PARAM_INT);
         $query->execute();
 
@@ -26,9 +28,35 @@ class UserRepository
     public function updateProjectTitle($data)
     {
         $dbConn = $this->db->getConnection();
-        $query = $dbConn->prepare('UPDATE user SET project_title=:title WHERE user_id=:userId');
+        $query = $dbConn->prepare(
+            'UPDATE user SET project_title=:title WHERE user_id=:userId'
+        );
         $query->bindValue(':userId', $data['userId'], PDO::PARAM_INT);
         $query->bindValue(':title', $data['projectTitle'], PDO::PARAM_STR);
+
+        return $query->execute();
+    }
+
+    public function getMobileNumberByUserId(int $userId)
+    {
+        $dbConn = $this->db->getConnection();
+        $query = $dbConn->prepare(
+            'SELECT mobile FROM user WHERE user_id=:userId'
+        );
+        $query->bindValue(':userId', $userId, PDO::PARAM_INT);
+        $query->execute();
+
+        return $query->fetchColumn();
+    }
+
+    public function updateMobileNumber($data)
+    {
+        $dbConn = $this->db->getConnection();
+        $query = $dbConn->prepare(
+            'UPDATE user SET mobile=:mobile WHERE user_id=:userId'
+        );
+        $query->bindValue(':userId', $data['userId'], PDO::PARAM_INT);
+        $query->bindValue(':mobile', $data['mobile'], PDO::PARAM_STR);
 
         return $query->execute();
     }
@@ -36,7 +64,8 @@ class UserRepository
     public function getSensorByUserId(int $userId)
     {
         $dbConn = $this->db->getConnection();
-        $sql = 'SELECT * FROM sensor WHERE user_id=:userId ORDER BY created_at DESC';
+        $sql =
+            'SELECT * FROM sensor WHERE user_id=:userId ORDER BY created_at DESC';
         $query = $dbConn->prepare($sql);
         $query->bindValue(':userId', $userId, PDO::PARAM_INT);
         $query->execute();
@@ -57,7 +86,9 @@ class UserRepository
     public function getLocationByUserId(int $userId)
     {
         $dbConn = $this->db->getConnection();
-        $query = $dbConn->prepare('SELECT * FROM location WHERE user_id=:userId');
+        $query = $dbConn->prepare(
+            'SELECT * FROM location WHERE user_id=:userId'
+        );
         $query->bindValue(':userId', $userId, PDO::PARAM_INT);
         $query->execute();
 
@@ -67,7 +98,9 @@ class UserRepository
     public function getSensorSettingByUserId(int $userId)
     {
         $dbConn = $this->db->getConnection();
-        $query = $dbConn->prepare('SELECT * FROM sensor_setting WHERE user_id=:userId');
+        $query = $dbConn->prepare(
+            'SELECT * FROM sensor_setting WHERE user_id=:userId'
+        );
         $query->bindValue(':userId', $userId, PDO::PARAM_INT);
         $query->execute();
 
@@ -98,7 +131,9 @@ class UserRepository
     public function getDeviceSettingByUserId(int $userId)
     {
         $dbConn = $this->db->getConnection();
-        $query = $dbConn->prepare('SELECT * FROM device_setting WHERE user_id=:userId');
+        $query = $dbConn->prepare(
+            'SELECT * FROM device_setting WHERE user_id=:userId'
+        );
         $query->bindValue(':userId', $userId, PDO::PARAM_INT);
         $query->execute();
 

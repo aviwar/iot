@@ -10,7 +10,9 @@ class UserController extends BaseController
     {
         $data['page']['title'] = 'Home';
         $userId = $request->getAttribute('userId');
-        $data['projectTitle'] = $this->userRepository->getProjectTitleByUserId($userId);
+        $data['projectTitle'] = $this->userRepository->getProjectTitleByUserId(
+            $userId
+        );
 
         return $this->view->render($response, 'user/dashboard.twig', $data);
     }
@@ -20,7 +22,9 @@ class UserController extends BaseController
         $userId = $request->getAttribute('userId');
 
         $data['page']['title'] = 'Update Project Title';
-        $data['projectTitle'] = $this->userRepository->getProjectTitleByUserId($userId);
+        $data['projectTitle'] = $this->userRepository->getProjectTitleByUserId(
+            $userId
+        );
 
         return $this->view->render($response, 'user/view_title.twig', $data);
     }
@@ -43,9 +47,44 @@ class UserController extends BaseController
 
         $this->flash->addMessage($type, $msg);
 
-        return $response->withRedirect(
-            $this->router->pathFor('title')
+        return $response->withRedirect($this->router->pathFor('title'));
+    }
+
+    public function viewMobileNumber(Request $request, Response $response)
+    {
+        $userId = $request->getAttribute('userId');
+
+        $data['page']['title'] = 'Update Mobile Number';
+        $data['mobileNumber'] = $this->userRepository->getMobileNumberByUserId(
+            $userId
         );
+
+        return $this->view->render(
+            $response,
+            'user/view_mobile_number.twig',
+            $data
+        );
+    }
+
+    public function updateMobileNumber(Request $request, Response $response)
+    {
+        $data = $request->getParsedBody();
+        $data['userId'] = $request->getAttribute('userId');
+
+        $this->logger->log('User Mobile Number: ' . json_encode($data));
+
+        $isUpdated = $this->userRepository->updateMobileNumber($data);
+        if ($isUpdated === false) {
+            $type = 'error';
+            $msg = 'Some problem occurred, please try again.';
+        } else {
+            $type = 'success';
+            $msg = 'Updated successfully.';
+        }
+
+        $this->flash->addMessage($type, $msg);
+
+        return $response->withRedirect($this->router->pathFor('mobile'));
     }
 
     public function viewSensorList(Request $request, Response $response)
@@ -54,8 +93,11 @@ class UserController extends BaseController
 
         $data['page']['title'] = 'Real Time Sensor Values';
         $data['sensors'] = $this->userRepository->getSensorByUserId($userId);
-        $data['setting'] = $this->userRepository->getSensorSettingByUserId($userId);
-        $data['setting']['sensor_count'] = ($data['setting']['sensor_count']) ?? 8;
+        $data['setting'] = $this->userRepository->getSensorSettingByUserId(
+            $userId
+        );
+        $data['setting']['sensor_count'] =
+            $data['setting']['sensor_count'] ?? 8;
 
         return $this->view->render($response, 'user/view_sensors.twig', $data);
     }
@@ -66,8 +108,11 @@ class UserController extends BaseController
 
         $userId = $request->getAttribute('userId');
         $data['device'] = $this->userRepository->getDeviceByUserId($userId);
-        $data['setting'] = $this->userRepository->getDeviceSettingByUserId($userId);
-        $data['setting']['device_count'] = ($data['setting']['device_count']) ?? 6;
+        $data['setting'] = $this->userRepository->getDeviceSettingByUserId(
+            $userId
+        );
+        $data['setting']['device_count'] =
+            $data['setting']['device_count'] ?? 6;
 
         return $this->view->render(
             $response,
@@ -80,7 +125,11 @@ class UserController extends BaseController
     {
         $data['page']['title'] = 'Send Serial Data to Device';
 
-        return $this->view->render($response, 'user/view_device_data_form.twig', $data);
+        return $this->view->render(
+            $response,
+            'user/view_device_data_form.twig',
+            $data
+        );
     }
 
     public function viewLocation(Request $request, Response $response)
@@ -88,16 +137,26 @@ class UserController extends BaseController
         $userId = $request->getAttribute('userId');
 
         $data['page']['title'] = 'Location Summary';
-        $data['locations'] = $this->userRepository->getLocationByUserId($userId);
+        $data['locations'] = $this->userRepository->getLocationByUserId(
+            $userId
+        );
 
-        return $this->view->render($response, 'user/view_locations.twig', $data);
+        return $this->view->render(
+            $response,
+            'user/view_locations.twig',
+            $data
+        );
     }
 
     public function viewReset(Request $request, Response $response)
     {
         $data['page']['title'] = 'Reset Sensor Data';
 
-        return $this->view->render($response, 'user/view_reset_form.twig', $data);
+        return $this->view->render(
+            $response,
+            'user/view_reset_form.twig',
+            $data
+        );
     }
 
     public function viewSensorSetting(Request $request, Response $response)
@@ -105,9 +164,15 @@ class UserController extends BaseController
         $userId = $request->getAttribute('userId');
 
         $data['page']['title'] = 'Sensors';
-        $data['setting'] = $this->userRepository->getSensorSettingByUserId($userId);
+        $data['setting'] = $this->userRepository->getSensorSettingByUserId(
+            $userId
+        );
 
-        return $this->view->render($response, 'user/view_sensor_setting.twig', $data);
+        return $this->view->render(
+            $response,
+            'user/view_sensor_setting.twig',
+            $data
+        );
     }
 
     public function updateSensorSetting(Request $request, Response $response)
@@ -138,9 +203,15 @@ class UserController extends BaseController
         $userId = $request->getAttribute('userId');
 
         $data['page']['title'] = 'Devices';
-        $data['setting'] = $this->userRepository->getDeviceSettingByUserId($userId);
+        $data['setting'] = $this->userRepository->getDeviceSettingByUserId(
+            $userId
+        );
 
-        return $this->view->render($response, 'user/view_device_setting.twig', $data);
+        return $this->view->render(
+            $response,
+            'user/view_device_setting.twig',
+            $data
+        );
     }
 
     public function updateDeviceSetting(Request $request, Response $response)
