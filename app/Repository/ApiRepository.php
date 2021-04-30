@@ -13,17 +13,21 @@ class ApiRepository
         $this->db = $db;
     }
 
+    public function getDateTime() {
+        return date('Y-m-d H:i:s');
+    }
+
     public function addSensor($data)
     {
         $dbConn = $this->db->getConnection();
         $query = $dbConn->prepare(
             "INSERT INTO sensor(
                 user_id, sensor1, sensor2, sensor3, sensor4,
-                sensor5, sensor6, sensor7, sensor8
+                sensor5, sensor6, sensor7, sensor8, created_at
             )
             VALUES (
                 :userId, :sensor1, :sensor2, :sensor3, :sensor4,
-                :sensor5, :sensor6, :sensor7, :sensor8
+                :sensor5, :sensor6, :sensor7, :sensor8, :created_at
             )"
         );
         $query->bindValue(':userId', $data['userId'], PDO::PARAM_INT);
@@ -35,6 +39,7 @@ class ApiRepository
         $query->bindValue(':sensor6', $data['sensor6'] ?? '', PDO::PARAM_STR);
         $query->bindValue(':sensor7', $data['sensor7'] ?? '', PDO::PARAM_STR);
         $query->bindValue(':sensor8', $data['sensor8'] ?? '', PDO::PARAM_STR);
+        $query->bindValue(':created_at', $this->getDateTime(), PDO::PARAM_STR);
         $query->execute();
 
         return $dbConn->lastInsertId();
@@ -134,12 +139,13 @@ class ApiRepository
     {
         $dbConn = $this->db->getConnection();
         $query = $dbConn->prepare(
-            "INSERT INTO location(user_id, longitude, latitude)
-            VALUES (:userId, :longitude, :latitude)"
+            "INSERT INTO location(user_id, longitude, latitude, created_at)
+            VALUES (:userId, :longitude, :latitude, :created_at)"
         );
         $query->bindValue(':userId', $data['userId'], PDO::PARAM_INT);
         $query->bindValue(':longitude', $data['longitude'], PDO::PARAM_STR);
         $query->bindValue(':latitude', $data['latitude'], PDO::PARAM_STR);
+        $query->bindValue(':created_at', $this->getDateTime(), PDO::PARAM_STR);
         $query->execute();
 
         return $dbConn->lastInsertId();
@@ -155,6 +161,8 @@ class ApiRepository
             $sql .= ' AND DATE(created_at)=:date';
             $data['date'] = $date;
         }
+
+        $sql .= ' ORDER BY created_at DESC';
 
         $query = $dbConn->prepare($sql);
         $query->execute($data);

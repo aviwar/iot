@@ -19,7 +19,7 @@ class ApiController extends BaseController
             throw new \Exception('Unable to add sensor data');
         }
 
-        if (!empty($mobileNumber)) {
+        if (!empty($data['sms']) && !empty($mobileNumber)) {
             $this->sendSensorDataSms($mobileNumber, $data);
         }
 
@@ -32,9 +32,16 @@ class ApiController extends BaseController
     private function sendSensorDataSms($mobileNumber, $sensorData)
     {
         unset($sensorData['userId']);
+        unset($sensorData['sms']);
 
         $mobileNumbers = [$mobileNumber];
-        $message = json_encode($sensorData);
+        // $message = json_encode($sensorData);
+
+        $message = "";
+        for ($i=1; $i <= 8; $i++) {
+            $key = 'sensor' . $i;
+            $message .= "sensor $i $sensorData[$key] ";
+        }
 
         $smsResponse = $this->sms->sendSms($mobileNumbers, $message);
 
@@ -60,6 +67,8 @@ class ApiController extends BaseController
     {
         $data = $request->getParsedBody();
         $data['user_id'] = $request->getAttribute('userId');
+
+        $this->logger->log('Update Device data: ' . json_encode($data));
 
         $deviceId = $this->apiRepository->addDevice($data);
         if (empty($deviceId)) {

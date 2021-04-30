@@ -102,3 +102,60 @@ CREATE TABLE `device_setting` (
   PRIMARY KEY (`device_setting_id`),
   UNIQUE KEY `unique_device_setting` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-----------------------------------
+
+CREATE TABLE `sensor_type` (
+  `sensor_type_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `sensor_name` VARCHAR(50) NOT NULL,
+  `sensor_type` ENUM('Analog', 'Digital') NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`sensor_type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `user_sensor_type` (
+  `user_sensor_type_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `user_id` INT(11) NOT NULL,
+  `sensor1_name` VARCHAR(50) DEFAULT NULL,
+  `sensor1_pin` VARCHAR(5) DEFAULT NULL,
+  `sensor2_name` VARCHAR(50) DEFAULT NULL,
+  `sensor2_pin` VARCHAR(5) DEFAULT NULL,
+  `sensor3_name` VARCHAR(50) DEFAULT NULL,
+  `sensor3_pin` VARCHAR(5) DEFAULT NULL,
+  `sensor4_name` VARCHAR(50) DEFAULT NULL,
+  `sensor4_pin` VARCHAR(5) DEFAULT NULL,
+  `sensor5_name` VARCHAR(50) DEFAULT NULL,
+  `sensor5_pin` VARCHAR(5) DEFAULT NULL,
+  `sensor6_name` VARCHAR(50) DEFAULT NULL,
+  `sensor6_pin` VARCHAR(5) DEFAULT NULL,
+  `sensor7_name` VARCHAR(50) DEFAULT NULL,
+  `sensor7_pin` VARCHAR(5) DEFAULT NULL,
+  `sensor8_name` VARCHAR(50) DEFAULT NULL,
+  `sensor8_pin` VARCHAR(5) DEFAULT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_sensor_type_id`),
+  UNIQUE KEY `unique_user_sensor_type` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `sensor_type` (`sensor_name`, `sensor_type`) VALUES
+('Water level sensor', 'Analog'), ('Soil moisture sensor', 'Analog'),
+('Rain drop detection sensor', 'Analog'), ('Fuel level sensor', 'Analog'),
+('Oil level sensor', 'Analog'),('Flex sensor', 'Analog'),
+('Pulse sensor', 'Analog'),('Heart beat sensor', 'Analog'),
+('Temperature sensor', 'Analog'),('Flame sensor', 'Analog'),
+('Thermistor', 'Analog'),('Fire detection sensor', 'Analog'),
+('Thermal sensor', 'Analog'),('MEMS', 'Analog'),
+('Force sensor', 'Analog'),('ECG sensor', 'Analog'),
+('Current sensor', 'Analog'),('Voltage sensor', 'Analog'),
+('EMG sensor', 'Analog'),('LDR sensor', 'Analog'),
+('Blood Pressure sensor', 'Analog'),('IR sensor', 'Digital'),
+('Hall effect sensor', 'Digital'),('Gas sensor', 'Analog'),
+('Alcohol sensor', 'Analog'),('Smoke sensor', 'Analog'),
+('CO2 sensor', 'Analog'),('Air Quality sensor', 'Analog'),
+('Sound sensor', 'Digital'),('Breath sensor', 'Digital'),
+('Respiratory sensor', 'Digital'),('Vibration sensor', 'Digital'),
+('Eye blink Sensor', 'Digital'),('PIR sensor', 'Digital'),
+('Tilt sensor', 'Digital'),('Proximity sensor', 'Digital'),
+('Metal Detector', 'Digital');
