@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"sensor1\": \"1\",\r\n    \"sensor2\": \"2\",\r\n    \"sensor3\": \"3\",\r\n    \"sensor4\": \"4\",\r\n    \"sensor5\": \"\",\r\n    \"sensor6\": \"\",\r\n    \"sensor7\": \"\",\r\n    \"sensor8\": \"\"\r\n}",
+							"raw": "{\r\n    \"sensor1\": \"1\",\r\n    \"sensor2\": \"2\",\r\n    \"sensor3\": \"3\",\r\n    \"sensor4\": \"4\",\r\n    \"sensor5\": \"5\",\r\n    \"sensor6\": \"6\",\r\n    \"sensor7\": \"7\",\r\n    \"sensor8\": \"8\",\r\n    \"sms\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -175,12 +175,12 @@
 							"formdata": [
 								{
 									"key": "longitude",
-									"value": "-94.420307",
+									"value": "123456",
 									"type": "text"
 								},
 								{
 									"key": "latitude",
-									"value": "44.968046",
+									"value": "5678",
 									"type": "text"
 								}
 							]
@@ -285,6 +285,26 @@
 					"path": [
 						"auth",
 						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Sensor Type",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/sensorType",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"sensorType"
 					]
 				}
 			},

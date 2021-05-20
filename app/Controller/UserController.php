@@ -236,4 +236,43 @@ class UserController extends BaseController
             $this->router->pathFor('setting.device')
         );
     }
+
+    public function viewSensorType(Request $request, Response $response)
+    {
+        $userId = $request->getAttribute('userId');
+
+        $data['page']['title'] = 'Sensor Selection';
+        $data['sensors'] = $this->apiRepository->getSensorTypeData();
+        $data['userSensors'] = $this->userRepository->getUserSensorType(
+            $userId
+        );
+
+        return $this->view->render(
+            $response,
+            'user/view_sensor_type.twig',
+            $data
+        );
+    }
+
+    public function updateSensorType(Request $request, Response $response)
+    {
+        $data = $request->getParsedBody();
+        $data['user_id'] = $request->getAttribute('userId');
+        $data['is_published'] = 0;
+
+        $isUpdated = $this->userRepository->updateSensorType($data);
+        if ($isUpdated === false) {
+            $type = 'error';
+            $msg = 'Some problem occurred, please try again.';
+        } else {
+            $type = 'success';
+            $msg = 'Updated successfully.';
+        }
+
+        $this->flash->addMessage($type, $msg);
+
+        return $response->withRedirect(
+            $this->router->pathFor('setting.sensorType')
+        );
+    }
 }

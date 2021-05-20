@@ -160,4 +160,37 @@ class UserRepository
 
         return $query->execute($data);
     }
+
+    public function getUserSensorType(int $userId)
+    {
+        $dbConn = $this->db->getConnection();
+        $query = $dbConn->prepare(
+            'SELECT * FROM user_sensor_type WHERE user_id=:userId'
+        );
+        $query->bindValue(':userId', $userId, PDO::PARAM_INT);
+        $query->execute();
+
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function updateSensorType($data)
+    {
+        $sql = 'INSERT INTO user_sensor_type (';
+        $valueSql = ' VALUES (';
+        $duplicateSql = ' ON DUPLICATE KEY UPDATE ';
+        foreach ($data as $key => $value) {
+            $sql .= "$key, ";
+            $valueSql .= ":$key, ";
+            $duplicateSql .= "$key=VALUES($key), ";
+        }
+
+        $sql .= 'updated_at ) ';
+        $valueSql .= 'now())';
+        $duplicateSql = rtrim($duplicateSql, ', ');
+
+        $dbConn = $this->db->getConnection();
+        $query = $dbConn->prepare($sql . $valueSql . $duplicateSql);
+
+        return $query->execute($data);
+    }
 }

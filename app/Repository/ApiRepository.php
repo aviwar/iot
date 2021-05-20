@@ -13,7 +13,8 @@ class ApiRepository
         $this->db = $db;
     }
 
-    public function getDateTime() {
+    public function getDateTime()
+    {
         return date('Y-m-d H:i:s');
     }
 
@@ -100,7 +101,11 @@ class ApiRepository
             VALUES (:userId, :serialData)"
         );
         $query->bindValue(':userId', $data['userId'], PDO::PARAM_INT);
-        $query->bindValue(':serialData', $data['serialData'] ?? '', PDO::PARAM_STR);
+        $query->bindValue(
+            ':serialData',
+            $data['serialData'] ?? '',
+            PDO::PARAM_STR
+        );
         $query->execute();
 
         return $dbConn->lastInsertId();
@@ -168,5 +173,37 @@ class ApiRepository
         $query->execute($data);
 
         return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getSensorTypeData()
+    {
+        $dbConn = $this->db->getConnection();
+        $query = $dbConn->prepare('SELECT * FROM sensor_type');
+        $query->execute();
+
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getUserSensorTypeData($userId)
+    {
+        $dbConn = $this->db->getConnection();
+
+        $query = $dbConn->prepare(
+            'SELECT * FROM user_sensor_type WHERE user_id=:userId AND is_published=0'
+        );
+        $query->bindValue(':userId', $userId, PDO::PARAM_INT);
+        $query->execute();
+
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function updateUserSensorTypeStatus($userId)
+    {
+        $dbConn = $this->db->getConnection();
+        $sql = "UPDATE user_sensor_type SET is_published=1 WHERE user_id=:userId";
+        $query = $dbConn->prepare($sql);
+        $query->bindValue(':userId', $userId, PDO::PARAM_INT);
+
+        return $query->execute();
     }
 }

@@ -52,6 +52,11 @@ $app
             ->setName('setting.device');
         $app->post('/settings/device', 'userController:updateDeviceSetting');
 
+        $app
+            ->get('/settings/sensorType', 'userController:viewSensorType')
+            ->setName('setting.sensorType');
+        $app->post('/settings/sensorType', 'userController:updateSensorType');
+
         $app->get('/reset', 'userController:viewReset')->setName('reset');
 
         $app->get('/logout', 'authController:getLogout')->setName('logout');
@@ -84,6 +89,8 @@ $app
         $app
             ->delete('/reset', 'apiController:postResetData')
             ->setName('api.resetData');
+
+        $app->get('/sensorType', 'apiController:getSensorTypeData');
     })
     ->add(new ApiMiddleware($container));
 

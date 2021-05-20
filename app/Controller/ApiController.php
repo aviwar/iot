@@ -37,8 +37,8 @@ class ApiController extends BaseController
         $mobileNumbers = [$mobileNumber];
         // $message = json_encode($sensorData);
 
-        $message = "";
-        for ($i=1; $i <= 8; $i++) {
+        $message = '';
+        for ($i = 1; $i <= 8; $i++) {
             $key = 'sensor' . $i;
             $message .= "sensor $i $sensorData[$key] ";
         }
@@ -203,5 +203,45 @@ class ApiController extends BaseController
         $responseData['message'] = 'Sensor Data resetted';
 
         return $response->withJson($responseData, 200);
+    }
+
+    public function getSensorTypeData(Request $request, Response $response)
+    {
+        $userId = $request->getAttribute('userId');
+        $sensorData = $this->apiRepository->getUserSensorTypeData($userId);
+        if (empty($sensorData)) {
+            throw new \Exception('No data found!', 404);
+        }
+
+        $this->apiRepository->updateUserSensorTypeStatus($userId);
+
+        $sensorData = $this->processSensorTypeNaeData($sensorData);
+
+        $responseData['status'] = 'success';
+        $responseData['data'] = $sensorData;
+
+        return $response->withJson($responseData, 200);
+    }
+
+    private function processSensorTypeNaeData($data)
+    {
+        $sensorType = $this->apiRepository->getSensorTypeData();
+
+        for ($i = 1; $i <= 8; $i++) {
+            $sensorNameKey = 'sensor' . $i . '_name';
+
+            $sensorName = '';
+            if (!empty($data[$sensorNameKey])) {
+                // search sensor key value in sensor type array
+                $searchKey = array_search(
+                    $data[$sensorNameKey],
+                    array_column($sensorType, 'sensor_type_id')
+                );
+                $sensorName = $sensorType[$searchKey]['sensor_name'];
+            }
+            $data[$sensorNameKey] = $sensorName;
+        }
+
+        return $data;
     }
 }
