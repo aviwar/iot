@@ -1,40 +1,46 @@
-{% extends 'layout.twig' %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block stylecontent %}
-<style>
-body {
-    padding-top: 5rem;
-}
-</style>
-{% endblock %}
+<head>
+    <base href="{{base_url()}}/" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#fff">
+    <title>{{ appName }} - Login</title>
+    <link rel="stylesheet" href="assets/css/login.css">
+</head>
 
-{% block content %}
+<body>
+    <nav class="navbar bg-dark-cyan">
+        <a class="navbar-brand" href="{{ path_for('home') }}">{{ appName }}</a>
+    </nav>
+
     <aside class="form-signin col-sm-4">
         <div class="card">
             <article class="card-body">
-                <h4 class="card-title mb-4 mt-1">
-                    Sign in
-                </h4>
+                <h4 class="card-title mb-4 mt-1">Sign in</h4>
 
                 {% include 'flash.twig' %}
 
                 <form action="{{ path_for('login') }}" method="POST" role="form" autocomplete="off">
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input class="form-control {{errors.username ? 'is-invalid' : ''}}" id="username" name="username" placeholder="Username" type="username" value="{{ old.username }}">
+                        <input class="form-control {{errors.username ? 'is-invalid' : ''}}" id="username"
+                            name="username" placeholder="Username" type="username" value="{{ old.username }}">
                         {% if errors.username %}
-                            <div class="invalid-feedback">
-                                {{ errors.username | first }}
-                            </div>
+                        <div class="invalid-feedback">
+                            {{ errors.username | first }}
+                        </div>
                         {% endif %}
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input class="form-control {{errors.password ? 'is-invalid' : ''}}" id="password" name="password" placeholder="Password" type="password">
+                        <input class="form-control {{errors.password ? 'is-invalid' : ''}}" id="password"
+                            name="password" placeholder="Password" type="password">
                         {% if errors.password %}
-                            <div class="invalid-feedback">
-                                {{ errors.password | first }}
-                            </div>
+                        <div class="invalid-feedback">
+                            {{ errors.password | first }}
+                        </div>
                         {% endif %}
                     </div>
                     <div class="form-group">
@@ -46,4 +52,6 @@ body {
             </article>
         </div>
     </aside>
-{% endblock%}
+</body>
+
+</html>

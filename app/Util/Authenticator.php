@@ -36,16 +36,16 @@ class Authenticator
         return isset($_SESSION['token']) ? $_SESSION['token'] : '';
     }
 
-    public function checkUserByUsername($username, $password)
+    public function checkActiveUser($username, $password)
     {
-        $user = $this->container->authRepository->getUser($username, $password);
+        $user = $this->container->authRepository->getActiveUser($username, $password);
         if (empty($user) === true) {
             return false;
         }
 
         $this->setUserSessionData($user);
 
-        return true;
+        return $user;
     }
 
     public function setUserSessionData($user)
@@ -76,5 +76,60 @@ class Authenticator
     public function getOTP()
     {
         return Random::intBetween(100000, 999999);
+    }
+
+    public function getSideMenu(){
+        $sideMenu = [];
+        $currentUrl = $_SERVER['REQUEST_URI'];
+
+        $menuItems = $this->container->userRepository->getMenuItems();
+        foreach($menuItems as $key=>$item) {            
+            
+            list($isActivePage, $subMenu) = $this->processSubMenuItems(
+                $this->container->userRepository->getSubMenuItems($item['menu_id']),
+                $currentUrl
+            );            
+            
+            $menuURL = '#';
+            if (empty($subMenu)) {
+                $menuURL = $this->container->router->pathFor($item['menu_url']);
+            }
+            
+            $isActivePage = ($currentUrl === $menuURL) ? true : $isActivePage;
+
+            $sideMenu[$key] = $item;
+            $sideMenu[$key]['menu_url'] = $menuURL;
+            $sideMenu[$key]['subMenu'] = $subMenu;
+            $sideMenu[$key]['isActivePage'] = $isActivePage;
+
+        }
+        
+        return $sideMenu;
+    }
+
+    private function processSubMenuItems($subMenuItems, $currentUrl) {
+        $subMenu = [];
+        $isActiveMenu = false;
+
+        foreach($subMenuItems as $key=>$item) {
+            $isActivePage = false;
+            $subMenu[$key] = $item;
+
+            $subMenuURL = $this->container->router->pathFor($item['submenu_url']);
+
+            if ($currentUrl === $subMenuURL) {
+                $isActivePage = true;
+                $isActiveMenu = true;
+            }
+            
+            $subMenu[$key]['submenu_url'] = $subMenuURL;
+            $subMenu[$key]['isActivePage'] = $isActivePage;
+        }
+
+        return [
+            $isActiveMenu,
+            $subMenu,
+        ];
+
     }
 }

@@ -215,33 +215,74 @@ class ApiController extends BaseController
 
         $this->apiRepository->updateUserSensorTypeStatus($userId);
 
-        $sensorData = $this->processSensorTypeNaeData($sensorData);
+        $sensorData = $this->processSensorTypeData($sensorData);
 
         $responseData['status'] = 'success';
         $responseData['data'] = $sensorData;
+        $responseData['data']['projectTitle'] = $this->userRepository->getProjectTitleByUserId(
+            $userId
+        );
 
         return $response->withJson($responseData, 200);
     }
 
-    private function processSensorTypeNaeData($data)
+    private function processSensorTypeData($data)
     {
-        $sensorType = $this->apiRepository->getSensorTypeData();
+        $sensorTypeData = $this->apiRepository->getSensorTypeData();
 
         for ($i = 1; $i <= 8; $i++) {
             $sensorNameKey = 'sensor' . $i . '_name';
+            $sensorTypeKey = 'sensor' . $i . '_type';
 
             $sensorName = '';
+            $sensorType = '';
             if (!empty($data[$sensorNameKey])) {
                 // search sensor key value in sensor type array
                 $searchKey = array_search(
                     $data[$sensorNameKey],
-                    array_column($sensorType, 'sensor_type_id')
+                    array_column($sensorTypeData, 'sensor_type_id')
                 );
-                $sensorName = $sensorType[$searchKey]['sensor_name'];
+                $sensorName = $sensorTypeData[$searchKey]['sensor_name'];
+                $sensorType = $sensorTypeData[$searchKey]['sensor_type'];
             }
             $data[$sensorNameKey] = $sensorName;
+            $data[$sensorTypeKey] = $sensorType;
         }
 
         return $data;
+    }
+
+    public function readFile(Request $request, Response $response, $args)
+    {
+        $fileType = $args['fileName'];
+
+        if ($fileType === 'Analog') {
+            $fileName = 'Analog_sensor_code.txt';
+        } else {
+            $fileName = 'Digital_sensor_code.txt';
+        }
+        
+        echo htmlentities(file_get_contents($this->config->getDocsPath() . $fileName));        
+        exit;
+    }
+    
+    
+    public function downloadFile(Request $request, Response $response, $args)
+    {
+        $fileType = $args['fileName'];
+
+        if ($fileType === 'Analog') {
+            $fileName = 'Analog_sensor_code.txt';
+        } else {
+            $fileName = 'Digital_sensor_code.txt';
+        }
+
+        $filePath = $this->config->getDocsPath() .  $fileName;
+        
+        header('Content-Type: application/octet-stream');
+        header("Content-Transfer-Encoding: Binary"); 
+        header("Content-disposition: attachment; filename=\"" . basename($filePath) . "\""); 
+        readfile($filePath);        
+        exit;
     }
 }

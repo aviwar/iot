@@ -1,0 +1,90 @@
+{% extends 'user/layout.twig' %}
+
+{% block stylecontent %}
+<link href="assets/css/prism.css" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="form-group row">
+                    <div class="col-sm-3"></div>
+                    <label class="col-form-label" for="code">Code</label>
+                    <div class="col-sm-4">
+                        <select class="custom-select sensor-name" name="{{sensorName}}">
+                            <option value="" data-type="">--Select--</option>
+
+                            {% for sensor in sensors %}
+
+                            <option value="{{sensor.sensor_type_id}}" {{ (sensor.sensor_type_id==sensorNameValue)
+                                ? 'selected' : '' }} data-type="{{sensor.sensor_type}}">
+                                {{sensor.sensor_name}}
+                            </option>
+
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body hide" id="cardbody">
+                <a class="btn btn-cyan float-right" href="" id="fileDownloadLink">
+                    <i class="fas fa-file-download"></i> Download
+                </a>
+                <br /><br />
+                <pre><code class="language-c" id="codeBlock"></code></pre>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scriptcontent %}
+<script src="assets/js/prism.js"></script>
+<script>
+    $(document).ready(function () {
+        // sensor name dropdown change
+        $('.sensor-name').on('change', function () {
+            let rowId = $(this).parent().parent().data('id');
+            let sensorType = $(this).find(':selected').data('type');
+
+            if (sensorType != '') {
+                getCodeContent(sensorType);
+                generateDownloadLink(sensorType);
+
+                $('#cardbody').removeClass('hide');
+            } else {
+                $('#cardbody').addClass('hide');
+            }
+        });
+    });
+
+    function getCodeContent(sensorType) {
+        let url = "{{ path_for('file.read', { 'fileName': 'sensorType' }) }}";
+        url = url.replace("sensorType", sensorType);
+
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function (response) {
+                $('#codeBlock').html(response);
+
+                // re-run Prism.js aftre ajax call
+                Prism.highlightElement($('#codeBlock')[0]);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function generateDownloadLink(sensorType) {
+        let url = "{{ path_for('file.download', { 'fileName': 'sensorType' }) }}";
+        url = url.replace("sensorType", sensorType);
+
+        $('#fileDownloadLink').attr('href', url);
+    }
+</script>
+{% endblock %}

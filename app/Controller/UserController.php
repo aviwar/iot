@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 class UserController extends BaseController
 {
+    
     public function dashboard(Request $request, Response $response)
     {
         $data['page']['title'] = 'Home';
@@ -259,6 +260,13 @@ class UserController extends BaseController
         $data = $request->getParsedBody();
         $data['user_id'] = $request->getAttribute('userId');
         $data['is_published'] = 0;
+        
+        for ($i=1; $i<=8; $i++) {            
+            if ($data["sensor{$i}_name"] === '') {
+                $data["sensor{$i}_pin"] = '';
+                
+            }
+        }
 
         $isUpdated = $this->userRepository->updateSensorType($data);
         if ($isUpdated === false) {
@@ -273,6 +281,18 @@ class UserController extends BaseController
 
         return $response->withRedirect(
             $this->router->pathFor('setting.sensorType')
+        );
+    }
+
+    public function viewCode(Request $request, Response $response)
+    {
+        $data['page']['title'] = 'Sensor Code';
+        $data['sensors'] = $this->apiRepository->getSensorTypeData();
+
+        return $this->view->render(
+            $response,
+            'user/view_code.twig',
+            $data
         );
     }
 }

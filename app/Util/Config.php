@@ -19,4 +19,10 @@ class Config
     {
         return $this->config['app_log'];
     }
+    
+    
+    public function getDocsPath()
+    {
+        return $this->config['docs'];
+    }
 }

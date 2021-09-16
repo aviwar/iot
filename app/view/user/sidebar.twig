@@ -2,97 +2,51 @@
     <a class="brand-link" href="{{ path_for('home') }}">
         <span class="brand-text font-weight-light">{{ appName }}</span>
     </a>
+
     <div class="sidebar">
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-accordion="false" data-widget="treeview" role="menu">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path_for('home') }}">
-                        <i class="nav-icon fas fa-home"></i>
-                        <p>Home</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path_for('title') }}">
-                        <i class="nav-icon far fa-edit"></i>
-                        <p>Title Update</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path_for('sensors') }}">
-                        <i class="nav-icon fas fa-table"></i>
-                        <p>View IOT Data</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path_for('mobile') }}">
-                        <i class="nav-icon fas fa-edit"></i>
-                        <p>Mobile Number Update</p>
-                    </a>
-                </li>
-                <li class="nav-item has-treeview menu-open">
-                    <a class="nav-link" href="#">
-                        <i class="nav-icon fas fa-tablet-alt"></i>
+
+                {% for item in sideMenu %}
+
+                {% set activeMenuClass = item['isActivePage'] ? 'active' : '' %}
+
+                {% set hasSubMenu = item['subMenu'] is not empty ? true : false %}
+                {% set hasSubMenuClass = hasSubMenu ? 'has-treeview' : '' %}
+                {% set activeSubmenuClass = (hasSubMenu and item['isActivePage']) ? 'menu-open' : 'menu-close' %}
+
+                <li class="nav-item {{hasSubMenuClass}} {{activeSubmenuClass}}">
+                    <a class="nav-link {{activeMenuClass}}" href="{{ item['menu_url'] }}">
+                        <i class="nav-icon {{item.menu_icon}}"></i>
                         <p>
-                            Device Control
+                            {{item.menu_name}}
+
+                            {% if hasSubMenu %}
                             <i class="right fas fa-angle-left"></i>
+                            {% endif %}
                         </p>
+
                     </a>
+
+                    {% if hasSubMenu %}
                     <ul class="nav nav-treeview">
+                        {% for subItem in item['subMenu'] %}
+
+                        {% set activeSubMenuClass = subItem['isActivePage'] ? 'active' : '' %}
+
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path_for('device.switch') }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Device On/Off Buttons</p>
+                            <a class="nav-link {{activeSubMenuClass}}" href="{{ subItem['submenu_url'] }}">
+                                <i class="nav-icon {{subItem.submenu_icon}}"></i>
+                                <p>{{subItem.submenu_name}}</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path_for('device.serialData') }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Serial Data to Device</p>
-                            </a>
-                        </li>
+
+                        {% endfor %}
                     </ul>
+                    {% endif %}
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path_for('locations') }}">
-                        <i class="nav-icon fas fa-map-marker-alt"></i>
-                        <p>Location Details</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path_for('reset') }}">
-                        <i class="nav-icon fas fa-undo"></i>
-                        <p>Reset Sensor Data</p>
-                    </a>
-                </li>
-                <li class="nav-item has-treeview menu-open">
-                    <a class="nav-link" href="#">
-                        <i class="nav-icon fas fa-cog"></i>
-                        <p>
-                            Settings
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path_for('setting.sensor') }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Sensors</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path_for('setting.device') }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Devices</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path_for('setting.sensorType') }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Sensor Selection</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+
+                {% endfor %}
             </ul>
         </nav>
     </div>

@@ -13,6 +13,21 @@ class AuthRepository
         $this->db = $db;
     }
 
+    public function getActiveUser(string $username, string $password)
+    {
+        $shaPassword = sha1($password);
+        $dbConn = $this->db->getConnection();
+        $query = $dbConn->prepare(
+            'SELECT user_id, username, is_active FROM user
+            WHERE username=:username AND password=:password AND is_active!=0'
+        );
+        $query->bindValue(':username', $username, PDO::PARAM_STR);
+        $query->bindValue(':password', $shaPassword, PDO::PARAM_STR);
+        $query->execute();
+
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function getUser(string $username, string $password)
     {
         $shaPassword = sha1($password);
@@ -65,5 +80,20 @@ class AuthRepository
         $query->bindValue(':userId', $userId, PDO::PARAM_STR);
         $query->bindValue(':uniqId', $uniqId, PDO::PARAM_STR);
         $query->execute();
+    }
+    
+    public function updateUserPassword(int $userId, string $password)
+    {
+        $shaPassword = sha1($password);
+
+        $dbConn = $this->db->getConnection();
+        $query = $dbConn->prepare(
+            "UPDATE user SET password=:password, is_active=1
+            WHERE user_id=:userId"
+        );
+        $query->bindValue(':userId', $userId, PDO::PARAM_STR);
+        $query->bindValue(':password', $shaPassword, PDO::PARAM_STR);
+        
+        return $query->execute();
     }
 }

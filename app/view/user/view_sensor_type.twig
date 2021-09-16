@@ -11,15 +11,19 @@
                         {% set sensorName = "sensor" ~ i ~ "_name" %}
                         {% set sensorType = "sensor" ~ i ~ "_type" %}
                         {% set sensorPin = "sensor" ~ i ~ "_pin" %}
+                        {% set lowThreshold = "sensor" ~ i ~ "_low_threshold" %}
+                        {% set highThreshold = "sensor" ~ i ~ "_high_threshold" %}
                         {% set sensorNameValue = userSensors[sensorName] %}
                         {% set sensorTypeValue = (sensorNameValue != 0) ? sensors[sensorNameValue].sensor_type : '' %}
                         {% set sensorPinValue = userSensors[sensorPin] %}
+                        {% set lowThresholdValue = userSensors[lowThreshold] %}
+                        {% set highThresholdValue = userSensors[highThreshold] %}
 
-                    <div class="form-group row" data-id="{{i}}">
-                        <label class="col-sm-2 col-form-label" for="{{sensorName}}">
+                    <div class="form-row" data-id="{{i}}">
+                        <label class="col-sm-1 col-form-label" for="{{sensorName}}">
                             Sensor {{i}}
                         </label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <select class="custom-select sensor-name" name="{{sensorName}}">
                                 <option value="" data-type="">--Select--</option>
 
@@ -35,20 +39,18 @@
                             </select>
                         </div>
 
-                        <label class="col-sm-1 col-form-label">Type</label>
-                        <div class="col-sm-2">
+                        <label class="col-form-label">Type</label>
+                        <div class="col-sm-1">
                             <input type="text" class="form-control sensor-type" id="{{sensorType}}" value="{{sensorTypeValue}}" {{ (sensorTypeValue is not empty) ? 'readonly' : 'disabled'}} >
                         </div>
 
-                        <label class="col-sm-2 col-form-label">PIN Number</label>
+                        <label class="col-form-label">PIN Number</label>
                         <div class="col-sm-2">
                             <select class="custom-select sensor-pin" name="{{sensorPin}}" id="{{sensorPin}}" {{ (sensorTypeValue is not empty) ? '' : 'disabled'}}>
                                 <option value="" data-type="">--Select--</option>
+                                    {% set prefix = 'P' %}
 
-                                {% if sensorTypeValue is not empty %}
-                                    {% set prefix = sensorTypeValue == 'Digital' ? 'D' : 'A' %}
-
-                                    {% for i in 1..5 %}
+                                    {% for i in 1..8 %}
 
                                         <option value="{{prefix~i}}"
                                         {{ (prefix~i == sensorPinValue) ? 'selected' : ''}}>
@@ -56,10 +58,18 @@
                                         </option>
 
                                     {% endfor %}
-
-                                {% endif %}
                             </select>
                             <div class="invalid-feedback">Pin should not be empty/duplicate</div>
+                        </div>
+
+                        <label class="col-form-label">Low Threshold</label>
+                        <div class="col-sm-1">
+                            <input type="number" class="form-control sensor-type" name="{{lowThreshold}}" id="{{lowThreshold}}" value="{{lowThresholdValue}}" min="0">
+                        </div>
+
+                        <label class="col-form-label">High Threshold</label>
+                        <div class="col-sm-1">
+                            <input type="number" class="form-control sensor-type" name="{{highThreshold}}" id="{{highThreshold}}" value="{{highThresholdValue}}" min="0">
                         </div>
                     </div>
 
@@ -70,7 +80,7 @@
                     <div class="form-group row">
                         <div class="col-sm-2"></div>
                         <div class="col-sm-2">
-                            <button class="btn btn-primary" type="submit" id="submitBtn">Update</button>
+                            <button class="btn btn-cyan" type="submit" id="submitBtn">Update</button>
                         </div>
                     </div>
                 </div>
@@ -90,16 +100,14 @@ $(document).ready(function() {
         let rowId = $(this).parent().parent().data('id');
         let sensorType = $(this).find(':selected').data('type');
 
-        console.log(sensorType);
-
         $('#sensor' + rowId + '_type').val(sensorType);
         if (sensorType != '') {
             $('#sensor' + rowId + '_type').removeAttr('disabled').prop('readonly',true);
+            $('#sensor'+ rowId +'_pin').prop('disabled', false);
         } else {
             $('#sensor' + rowId + '_type').removeAttr('readonly').prop('disabled',true);
+            $('#sensor'+ rowId +'_pin').val('').prop('disabled', true);
         }
-
-        buildPinDropdown(rowId, sensorType);
     });
 
     // pin number dropdown change
@@ -117,72 +125,13 @@ $(document).ready(function() {
     $("#submitBtn").click(function(e) {
         let isValid = true;
 
-        isValid = validateSensorType();
+        // isValid = validateSensorType();
         isValid = validatePinNumber();
         if (!isValid) {
             e.preventDefault();
         }
     })
 });
-
-function buildPinDropdown(rowId, sensorType, pinNumber='')
-{
-    let prefix = '';
-    let dropdownString = '';
-    if (sensorType === 'Analog') {
-        prefix = 'A';
-    } else if (sensorType === 'Digital') {
-        prefix = 'D';
-    }
-
-    resetPinDropdownOptions(rowId);
-
-    if (prefix !== '') {
-        for (let i = 1; i <= 5; i++) {
-            let value = prefix + i;
-
-            dropdownString += '<option value="'+ value +'">' + value +'</option>';
-        }
-
-        $('#sensor'+rowId+'_pin').append(dropdownString);
-        $('#sensor'+rowId+'_pin').prop('disabled', false);
-    }
-}
-
-function resetPinDropdownOptions(rowId) {
-    $('#sensor'+rowId+'_pin').find('option').not(':first').remove();
-    $('#sensor'+rowId+'_pin').removeClass('is-invalid').prop('disabled', true);
-}
-
-function validateSensorType()
-{
-    let isValid = true;
-    var analogCount = 1;
-    var digitalCount = 1;
-
-    $('.sensor-type').not(':disabled').each(function() {
-        let rowId = $(this).parent().parent().data('id');
-        let sensorTypeValue = $(this).val();
-
-        if (sensorTypeValue === 'Analog') {
-            if (analogCount > 5){
-                alert('Analog Sensor should not more than 5!');
-                isValid = false;
-            }
-
-            analogCount++;
-        } else if (sensorTypeValue === 'Digital') {
-            if (digitalCount > 5){
-                alert('Digital Sensor should not more than 5!');
-                isValid = false;
-            }
-
-            digitalCount++;
-        }
-    });
-
-    return isValid;
-}
 
 function validatePinNumber()
 {

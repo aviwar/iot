@@ -3,10 +3,10 @@
 }
 
 .bg-cyan {
-  background: #21BFDA;
+  background: #17a2b8;
 }
 .bg-dark-cyan {
-  background: #073640;
+  background: #17a2b8;
 }
 .bg-green {
   background-color: #66bb6a;
@@ -15,25 +15,25 @@
   background-color: #bdbdbd;
 }
 .btn-cyan {
-  background: #21BFDA;
+  background: #17a2b8;
   font-size: 16px;
   color: #fff;
   font-weight: 600;
   padding: 7px 20px;
-  border-radius: 0px;
+  /* border-radius: 0px; */
 }
 .btn-cyan:hover {
   color: #fff;
-  background: #21bfdabd;
+  background: #21bfda;
 }
 .btn-outline-cyan {
-  border:1px solid #21BFDA;
+  border: 1px solid #21bfda;
   background: #fff;
   font-size: 16px;
-  color: #21BFDA;
+  color: #21bfda;
   font-weight: 600;
   padding: 7px 20px;
-  border-radius: 0px;
+  /* border-radius: 0px; */
 }
 .btn-outline-cyan:hover {
   color: #fff;
@@ -42,13 +42,13 @@
 .btn-white {
   background: #fff;
   font-size: 16px;
-  color: #21BFDA;
+  color: #21bfda;
   font-weight: 600;
   padding: 7px 20px;
   border-radius: 0px;
 }
 .btn-white:hover {
-  color: #21BFDA;
+  color: #21bfda;
   background: #fff;
 }
 .btn-grey {
@@ -76,7 +76,7 @@
   background: #dc3545;
 }
 .btn-outline-red {
-  border:1px solid #dc3545;
+  border: 1px solid #dc3545;
   background: #fff;
   font-size: 16px;
   color: #dc3545;
@@ -101,7 +101,7 @@
   background: #28a745;
 }
 .btn-outline-green {
-  border:1px solid #28a745;
+  border: 1px solid #28a745;
   background: #fff;
   font-size: 16px;
   color: #28a745;

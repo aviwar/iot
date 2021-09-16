@@ -11,7 +11,9 @@ class Logger
     public function __construct($config)
     {
         $this->config = $config;
-        $applogPath = $this->config->getAppLog();
+        $logFileName = 'app_' . date('Y-m') . '.log';
+        $applogPath = $this->config->getAppLog() . $logFileName;
+
         $this->applog = new SplFileObject($applogPath, 'a+');
     }
 

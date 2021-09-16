@@ -103,60 +103,67 @@ CREATE TABLE `device_setting` (
   UNIQUE KEY `unique_device_setting` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
------------------------------------
 
-CREATE TABLE `sensor_type` (
-  `sensor_type_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `sensor_name` VARCHAR(50) NOT NULL,
-  `sensor_type` ENUM('Analog', 'Digital') NOT NULL,
+ALTER TABLE `user_sensor_type`
+  ADD `sensor1_low_threshold` INT(11) NOT NULL DEFAULT '0' AFTER `sensor1_pin`,
+  ADD `sensor1_high_threshold` INT(11) NOT NULL DEFAULT '0' AFTER `sensor1_low_threshold`,
+  ADD `sensor2_low_threshold` INT(11) NOT NULL DEFAULT '0' AFTER `sensor2_pin`,
+  ADD `sensor2_high_threshold` INT(11) NOT NULL DEFAULT '0' AFTER `sensor2_low_threshold`,
+  ADD `sensor3_low_threshold` INT(11) NOT NULL DEFAULT '0' AFTER `sensor3_pin`,
+  ADD `sensor3_high_threshold` INT(11) NOT NULL DEFAULT '0' AFTER `sensor3_low_threshold`,
+  ADD `sensor4_low_threshold` INT(11) NOT NULL DEFAULT '0' AFTER `sensor4_pin`,
+  ADD `sensor4_high_threshold` INT(11) NOT NULL DEFAULT '0' AFTER `sensor4_low_threshold`,
+  ADD `sensor5_low_threshold` INT(11) NOT NULL DEFAULT '0' AFTER `sensor5_pin`,
+  ADD `sensor5_high_threshold` INT(11) NOT NULL DEFAULT '0' AFTER `sensor5_low_threshold`,
+  ADD `sensor6_low_threshold` INT(11) NOT NULL DEFAULT '0' AFTER `sensor6_pin`,
+  ADD `sensor6_high_threshold` INT(11) NOT NULL DEFAULT '0' AFTER `sensor6_low_threshold`,
+  ADD `sensor7_low_threshold` INT(11) NOT NULL DEFAULT '0' AFTER `sensor7_pin`,
+  ADD `sensor7_high_threshold` INT(11) NOT NULL DEFAULT '0' AFTER `sensor7_low_threshold`,
+  ADD `sensor8_low_threshold` INT(11) NOT NULL DEFAULT '0' AFTER `sensor8_pin`,
+  ADD `sensor8_high_threshold` INT(11) NOT NULL DEFAULT '0' AFTER `sensor8_low_threshold`;
+
+ALTER TABLE `user` CHANGE `is_active` `is_active` TINYINT(1) NOT NULL DEFAULT '-1';
+
+
+CREATE TABLE `menu` (
+  `menu_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `menu_name` VARCHAR(50) NOT NULL,
+  `menu_icon` VARCHAR(50) NOT NULL,
+  `menu_url` VARCHAR(50) NULL,
+  `menu_order` INT(5) NOT NULL,  
+  `status` TINYINT(1) NOT NULL DEFAULT 1,
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`sensor_type_id`)
+  PRIMARY KEY (`menu_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE `user_sensor_type` (
-  `user_sensor_type_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `user_id` INT(11) NOT NULL,
-  `sensor1_name` INT(11) DEFAULT NULL,
-  `sensor1_pin` VARCHAR(10) DEFAULT NULL,
-  `sensor2_name` INT(11) DEFAULT NULL,
-  `sensor2_pin` VARCHAR(10) DEFAULT NULL,
-  `sensor3_name` INT(11) DEFAULT NULL,
-  `sensor3_pin` VARCHAR(10) DEFAULT NULL,
-  `sensor4_name` INT(11) DEFAULT NULL,
-  `sensor4_pin` VARCHAR(10) DEFAULT NULL,
-  `sensor5_name` INT(11) DEFAULT NULL,
-  `sensor5_pin` VARCHAR(10) DEFAULT NULL,
-  `sensor6_name` INT(11) DEFAULT NULL,
-  `sensor6_pin` VARCHAR(10) DEFAULT NULL,
-  `sensor7_name` INT(11) DEFAULT NULL,
-  `sensor7_pin` VARCHAR(10) DEFAULT NULL,
-  `sensor8_name` INT(11) DEFAULT NULL,
-  `sensor8_pin` VARCHAR(10) DEFAULT NULL,
-  `is_published` TINYINT(1) NOT NULL DEFAULT 0,
+CREATE TABLE `sub_menu` (
+  `submenu_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `menu_id` int(11) NOT NULL,
+  `submenu_name` VARCHAR(50) NOT NULL,
+  `submenu_icon` VARCHAR(50) NULL,
+  `submenu_url` VARCHAR(50) NOT NULL,
+  `submenu_order` INT(5) NOT NULL,  
+  `status` TINYINT(1) NOT NULL DEFAULT 1,
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`user_sensor_type_id`),
-  UNIQUE KEY `unique_user_sensor_type` (`user_id`)
+  PRIMARY KEY (`submenu_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `sensor_type` (`sensor_name`, `sensor_type`) VALUES
-('Water level sensor', 'Analog'), ('Soil moisture sensor', 'Analog'),
-('Rain drop detection sensor', 'Analog'), ('Fuel level sensor', 'Analog'),
-('Oil level sensor', 'Analog'),('Flex sensor', 'Analog'),
-('Pulse sensor', 'Analog'),('Heart beat sensor', 'Analog'),
-('Temperature sensor', 'Analog'),('Flame sensor', 'Analog'),
-('Thermistor', 'Analog'),('Fire detection sensor', 'Analog'),
-('Thermal sensor', 'Analog'),('MEMS', 'Analog'),
-('Force sensor', 'Analog'),('ECG sensor', 'Analog'),
-('Current sensor', 'Analog'),('Voltage sensor', 'Analog'),
-('EMG sensor', 'Analog'),('LDR sensor', 'Analog'),
-('Blood Pressure sensor', 'Analog'),('IR sensor', 'Digital'),
-('Hall effect sensor', 'Digital'),('Gas sensor', 'Analog'),
-('Alcohol sensor', 'Analog'),('Smoke sensor', 'Analog'),
-('CO2 sensor', 'Analog'),('Air Quality sensor', 'Analog'),
-('Sound sensor', 'Digital'),('Breath sensor', 'Digital'),
-('Respiratory sensor', 'Digital'),('Vibration sensor', 'Digital'),
-('Eye blink Sensor', 'Digital'),('PIR sensor', 'Digital'),
-('Tilt sensor', 'Digital'),('Proximity sensor', 'Digital'),
-('Metal Detector', 'Digital');
+INSERT INTO `menu` (`menu_id`, `menu_name`, `menu_icon`, `menu_url`, `menu_order`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Home', 'fas fa-home', 'home', 1, 1, '2021-09-15 15:30:25', '2021-09-15 17:40:21'),
+(2, 'Title Update', 'far fa-edit', 'title', 2, 1, '2021-09-15 15:31:02', '2021-09-15 15:31:02'),
+(3, 'View IOT Data', 'fas fa-table', 'sensors', 3, 1, '2021-09-15 17:28:41', '2021-09-15 17:28:41'),
+(4, 'Mobile Number Update', 'fas fa-edit', 'mobile', 4, 1, '2021-09-15 17:28:41', '2021-09-15 17:28:41'),
+(5, 'Device Control', 'fas fa-tablet-alt', NULL, 5, 1, '2021-09-15 17:30:39', '2021-09-15 17:30:39'),
+(6, 'Location Details', 'fas fa-map-marker-alt', 'locations', 6, 1, '2021-09-15 17:30:39', '2021-09-15 17:30:39'),
+(7, 'Reset Sensor Data', 'fas fa-undo', 'reset', 7, 1, '2021-09-15 17:33:20', '2021-09-15 17:33:20'),
+(8, 'Settings', 'fas fa-cog', NULL, 8, 1, '2021-09-15 17:33:20', '2021-09-15 17:33:20');
+
+INSERT INTO `sub_menu` (`submenu_id`, `menu_id`, `submenu_name`, `submenu_icon`, `submenu_url`, `submenu_order`, `status`, `created_at`, `updated_at`) VALUES
+(1, 5, 'Device On/Off Buttons', 'fa fa-toggle-on', 'device.switch', 1, 1, '2021-09-15 15:32:33', '2021-09-16 12:37:24'),
+(2, 5, 'Serial Data to Device', 'fa fa-paper-plane', 'device.serialData', 2, 1, '2021-09-15 15:38:47', '2021-09-16 12:39:32'),
+(3, 8, 'Sensors', 'far fa-circle', 'setting.sensor', 1, 1, '2021-09-15 17:49:54', '2021-09-15 17:49:54'),
+(4, 8, 'Devices', 'far fa-circle', 'setting.device', 2, 1, '2021-09-15 17:49:54', '2021-09-15 17:49:54'),
+(5, 8, 'Sensor Selection', 'far fa-circle', 'setting.sensorType', 3, 1, '2021-09-15 17:51:05', '2021-09-15 17:51:05'),
+(6, 8, 'Code', 'fa fa-code', 'code', 4, 1, '2021-09-15 17:51:05', '2021-09-16 12:36:50');

@@ -35,6 +35,8 @@ $container['view'] = function ($container) {
         'userId' => $container['authenticator']->getUserId(),
     ]);
 
+    $view->getEnvironment()->addGlobal('sideMenu', $container['authenticator']->getSideMenu());
+
     $view
         ->getEnvironment()
         ->addGlobal('appName', $container->get('settings')['app_name']);

@@ -7,21 +7,22 @@ return [
         'view' => [
             'path' => __DIR__ . '/../view',
             'twig' => [
-                'cache' => false,
-            ],
+                'cache' => false
+            ]
         ],
-        'app_log' => __DIR__ . '/../../logs/app.log',
-        'app_name' => 'Iot',
+        'app_log' => __DIR__ . '/../../logs/',
+		'app_name' => 'Iot',
         'db' => [
             'host' => '127.0.0.1',
             'name' => 'iot',
             'user' => 'root',
-            'password' => '',
+            'password' => ''
         ],
+        'docs' => __DIR__ . '/../../docs/',
         'sms' => [
             'clientId' => '',
             'apiKey' => '',
-            'senderId' => '',
+            'senderId' => ''
         ],
     ],
 ];
