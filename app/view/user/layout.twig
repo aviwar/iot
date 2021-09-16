@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <base href="{{base_url()}}/" />
     <meta charset="utf-8">
@@ -7,11 +8,11 @@
     <title>{{ appName }} - {{ page.title }}</title>
     <meta name='robots' content='noindex,follow' />
     <link rel="stylesheet" href="assets/css/packages.min.css">
-    <link rel="stylesheet" href="assets/css/adminlte.css">
-    <link rel="stylesheet" href="assets/css/datatable.packages.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/adminlte.min.css">
+    <link rel="stylesheet" href="assets/css/style.min.css">
     {% block stylecontent %} {% endblock %}
 </head>
+
 <body class="hold-transition sidebar-mini" oncontextmenu="return true;">
 
     <div class="wrapper">
@@ -46,6 +47,7 @@
     <script src="assets/js/packages.min.js"></script>
     <script src="assets/js/admin.packages.min.js"></script>
     <script src="assets/js/app.js"></script>
-	{% block scriptcontent %} {% endblock %}
+    {% block scriptcontent %} {% endblock %}
 </body>
+
 </html>

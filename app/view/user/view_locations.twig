@@ -1,6 +1,7 @@
 {% extends 'user/layout.twig' %}
 
 {% block stylecontent %}
+<link rel="stylesheet" href="assets/css/datatable.packages.min.css">
 <link rel="stylesheet" href="assets/css/flatpickr.min.css">
 {% endblock %}
 
@@ -15,7 +16,8 @@
                         Filter By Date
                     </label>
                     <div class="col-sm-3">
-                        <input class="form-control datePicker" id="date" placeholder="Select Date" name="date" type="text">
+                        <input class="form-control datePicker" id="date" placeholder="Select Date" name="date"
+                            type="text">
                     </div>
                     <div>
                         <button class="btn btn-cyan" type="button" id="filterBtn">Find</button>
@@ -52,46 +54,46 @@
 {% block scriptcontent %}
 <script src="assets/js/flatpickr.min.js"></script>
 <script>
-$(document).ready(function() {
-    $(".datePicker").flatpickr({
-        defaultDate: new Date(),
-        altInput: true,
-        altFormat: "d-m-Y",
-        dateFormat: "Y-m-d",
-    });
+    $(document).ready(function () {
+        $(".datePicker").flatpickr({
+            defaultDate: new Date(),
+            altInput: true,
+            altFormat: "d-m-Y",
+            dateFormat: "Y-m-d",
+        });
 
-    $("#filterBtn").click(function () {
-        let date = $('#date').val();
-        let url = "{{ path_for('api.getLocations', {'date': 'date'}) }}";
-        url = url.replace('date', date);
+        $("#filterBtn").click(function () {
+            let date = $('#date').val();
+            let url = "{{ path_for('api.getLocations', {'date': 'date'}) }}";
+            url = url.replace('date', date);
 
-        $.ajax({
-            type: "GET",
-            url: url,
-            headers: { 'username': '{{ auth.userName }}' },
-            success: function(response) {
-                buildTableData(response.data);
-            },
-            error: function (error) {
-                dataTable.clear().draw();
-            }
+            $.ajax({
+                type: "GET",
+                url: url,
+                headers: { 'username': '{{ auth.userName }}' },
+                success: function (response) {
+                    buildTableData(response.data);
+                },
+                error: function (error) {
+                    dataTable.clear().draw();
+                }
+            });
         });
     });
-});
 
-function buildTableData(data) {
-    let tbody = '';
-    let rowCount = data.length;
+    function buildTableData(data) {
+        let tbody = '';
+        let rowCount = data.length;
 
-    for(let i=0; i < rowCount; i++) {
-        tbody += '<tr>';
-        tbody += '<td>' + data[i].created_at + '</td>';
-        tbody += '<td>' + data[i].longitude + '</td>';
-        tbody += '<td>' + data[i].latitude + '</td>';
-        tbody += '</tr>';
+        for (let i = 0; i < rowCount; i++) {
+            tbody += '<tr>';
+            tbody += '<td>' + data[i].created_at + '</td>';
+            tbody += '<td>' + data[i].longitude + '</td>';
+            tbody += '<td>' + data[i].latitude + '</td>';
+            tbody += '</tr>';
+        }
+
+        $('#dataTable tbody').html(tbody);
     }
-
-    $('#dataTable tbody').html(tbody);
-}
 </script>
 {% endblock %}
