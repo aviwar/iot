@@ -1,6 +1,6 @@
 <?php
 
-use Iot\Controller\{ApiController, AuthController, UserController};
+use Iot\Controller\{ApiController, AuthController, UiController, UserController};
 use Iot\Repository\{ApiRepository, AuthRepository, UserRepository};
 use Iot\Util\{Authenticator, Config, Db, Logger, Sms, Validator};
 
@@ -36,10 +36,12 @@ $container['view'] = function ($container) {
     ]);
 
     $view->getEnvironment()->addGlobal('sideMenu', $container['authenticator']->getSideMenu());
+    $view->getEnvironment()->addGlobal('customUI', $container->get('settings')['custom_ui']);
 
     $view
         ->getEnvironment()
         ->addGlobal('appName', $container->get('settings')['app_name']);
+        
     $view->getEnvironment()->addGlobal('flash', $container->flash);
 
     return $view;
@@ -61,6 +63,10 @@ $container['apiController'] = function ($container) {
 
 $container['authController'] = function ($container) {
     return new AuthController($container);
+};
+
+$container['uiController'] = function ($container) {
+    return new UiController($container);
 };
 
 $container['userController'] = function ($container) {

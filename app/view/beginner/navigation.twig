@@ -1,0 +1,54 @@
+<header class="ud-header sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <nav class="navbar navbar-expand-lg">
+                    <a class="navbar-brand" href="{{ path_for('home') }}" title="Go to IOT Home">
+                        <!-- <img src="assets/images/logo.png" alt="Logo" /> -->
+                        <i class="fas fa-home"></i>
+                    </a>
+                    <button class="navbar-toggler">
+                        <span class="toggler-icon"> </span>
+                        <span class="toggler-icon"> </span>
+                        <span class="toggler-icon"> </span>
+                    </button>
+
+                    <div class="navbar-collapse">
+                        <ul id="nav" class="navbar-nav mx-auto">
+                            <li class="nav-item">
+                                <a href="{{ path_for('board') }}" title="Go to IOT Learning Board Page">IOT Learning Board</a>
+                            </li>
+                            <!-- <li class="nav-item">
+                                <a href="{{ path_for('about') }}">About us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path_for('contact') }}">Contact us</a>
+                            </li> -->
+
+                            {% if auth.check %}
+
+                            <li class="nav-item">
+                                <a href="{{ path_for('user.dashboard') }}" title="Go to User Dashboard">Dashboard</a>
+                            </li>
+                            {% endif %}
+
+                        </ul>
+                    </div>
+
+                    <div class="navbar-btn d-sm-inline-block">
+                        {% if auth.check %}
+                        <a href="{{ path_for('logout') }}" class="ud-main-btn ud-white-btn">
+                            Logout
+                        </a>
+
+                        {% else %}
+                        <a href="{{ path_for('login') }}" class="ud-main-btn ud-white-btn" title="Go to Login Page">
+                            Sign In
+                        </a>
+                        {% endif %}
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>

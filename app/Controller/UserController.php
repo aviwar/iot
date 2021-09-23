@@ -9,7 +9,7 @@ class UserController extends BaseController
     
     public function dashboard(Request $request, Response $response)
     {
-        $data['page']['title'] = 'Home';
+        $data['page']['title'] = 'Dashboard';
         $userId = $request->getAttribute('userId');
         $data['projectTitle'] = $this->userRepository->getProjectTitleByUserId(
             $userId

@@ -2,6 +2,11 @@
 
 use Iot\Middleware\{ApiMiddleware, GuestMiddleware, UserMiddleware};
 
+$app->get('/', 'uiController:landingPage')->setName('home');
+$app->get('/learning-board', 'uiController:learningBoardPage')->setName('board');
+$app->get('/about-us', 'uiController:aboutPage')->setName('about');
+$app->get('/contact-us', 'uiController:contactPage')->setName('contact');
+
 /* Guest Middleware */
 $app->group('', function () use ($app) {
     $app->get('/login', 'authController:getLogIn')->setName('login');
@@ -10,7 +15,7 @@ $app->group('', function () use ($app) {
 
 /* User Middleware */
 $app->group('', function () use ($app) {
-    $app->get('/', 'userController:dashboard')->setName('home');
+    $app->get('/user', 'userController:dashboard')->setName('user.dashboard');
 
     $app
         ->get('/sensors', 'userController:viewSensorList')

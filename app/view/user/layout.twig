@@ -6,6 +6,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ appName }} - {{ page.title }}</title>
+
+    <link rel="shortcut icon" href="assets/images/favicon.png" />
+
     <meta name='robots' content='noindex,follow' />
     <link rel="stylesheet" href="assets/css/packages.min.css">
     <link rel="stylesheet" href="assets/css/adminlte.min.css">
@@ -46,7 +49,14 @@
 
     <script src="assets/js/packages.min.js"></script>
     <script src="assets/js/admin.packages.min.js"></script>
-    <script src="assets/js/app.js"></script>
+    <script>
+        var dataTable;
+
+        $(document).ready(function () {
+            dataTable = $("#dataTable").DataTable();
+        });
+    </script>
+
     {% block scriptcontent %} {% endblock %}
 </body>
 

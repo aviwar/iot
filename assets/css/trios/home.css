@@ -1,0 +1,70 @@
+/* ===== Hero CSS ===== */
+.ud-hero {
+  background-image: url("../../images/trios/cover.png");
+  height: 750px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-top: 180px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .ud-hero {
+    padding-top: 160px;
+  }
+}
+
+@media (max-width: 767px) {
+  .ud-hero {
+    padding-top: 130px;
+  }
+}
+
+.ud-hero-content {
+  max-width: 780px;
+  margin: auto;
+  margin-bottom: 30px;
+}
+
+.ud-hero-content .ud-hero-title {
+  color: var(--white);
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 50px;
+  text-align: center;
+  margin-top: 42%;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 4px #000000;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .ud-hero-content .ud-hero-title {
+    font-size: 38px;
+    line-height: 50px;
+  }
+}
+
+@media (max-width: 767px) {
+  .ud-hero-content .ud-hero-title {
+    font-size: 26px;
+    line-height: 38px;
+  }
+}
+
+/* ===== Features CSS ===== */
+.ud-features {
+  padding-top: 120px;
+  padding-bottom: 90px;
+}
+
+@media (max-width: 767px) {
+  .ud-features {
+    padding-top: 80px;
+    padding-bottom: 40px;
+  }
+}
+
+.ud-section-title {
+  max-width: 620px;
+  margin-bottom: 50px;
+}

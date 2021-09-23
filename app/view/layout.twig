@@ -1,25 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <base href="{{base_url()}}/" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{{ appName }}</title>
+    <title>{{ appName }} - {{ page.title }}</title>
     <meta name="theme-color" content="#fff">
 
+    <!-- <link rel="shortcut icon" href="assets/images/favicon.png" /> -->
+
     <link rel="stylesheet" href="assets/css/packages.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/{{customUI}}/custom.css">
 
     {% block stylecontent %} {% endblock %}
 </head>
-<body oncontextmenu="return true;">
-    {% include 'navigation.twig' %}
+
+<body>
+    {% include customUI ~ '/navigation.twig' %}
 
     <main role="main">
         {% block content %} {% endblock %}
     </main>
 
+    {% include customUI ~ '/footer.twig' %}
+
+    <!-- ====== Back To Top Start ====== -->
+    <a href="javascript:void(0)" class="back-to-top" title="Go to Top">
+        <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </a>
+    <!-- ====== Back To Top End ====== -->
+
     <script src="assets/js/packages.min.js"></script>
-	{% block scriptcontent %}{% endblock %}
-	</body>
+    <script src="assets/js/scroll.js"></script>
+
+    {% block scriptcontent %}{% endblock %}
+
+    <script>
+        // ==== for menu scroll
+        const pageLink = document.querySelectorAll(".ud-menu-scroll");
+
+        pageLink.forEach((elem) => {
+            elem.addEventListener("click", (e) => {
+                e.preventDefault();
+                document.querySelector(elem.getAttribute("href")).scrollIntoView({
+                    behavior: "smooth",
+                    offsetTop: 1 - 60,
+                });
+            });
+        });
+
+        // section menu active
+        function onScroll(event) {
+            const sections = document.querySelectorAll(".ud-menu-scroll");
+            const scrollPos =
+                window.pageYOffset ||
+                document.documentElement.scrollTop ||
+                document.body.scrollTop;
+
+            for (let i = 0; i < sections.length; i++) {
+                const currLink = sections[i];
+                const val = currLink.getAttribute("href");
+                const refElement = document.querySelector(val);
+                const scrollTopMinus = scrollPos + 73;
+                if (
+                    refElement.offsetTop <= scrollTopMinus &&
+                    refElement.offsetTop + refElement.offsetHeight > scrollTopMinus
+                ) {
+                    document
+                        .querySelector(".ud-menu-scroll")
+                        .classList.remove("active");
+                    currLink.classList.add("active");
+                } else {
+                    currLink.classList.remove("active");
+                }
+            }
+        }
+
+        window.document.addEventListener("scroll", onScroll);
+    </script>
+</body>
+
 </html>

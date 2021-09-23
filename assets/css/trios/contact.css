@@ -1,0 +1,157 @@
+/* ===== Contact CSS ===== */
+.ud-contact {
+  padding: 135px 0px;
+  position: relative;
+}
+
+@media (max-width: 767px) {
+  .ud-contact {
+    padding: 80px 0;
+  }
+}
+
+.ud-contact::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 50%;
+  background: #f3f4fe;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .ud-contact::after {
+    height: 45%;
+  }
+}
+
+.ud-contact-title {
+  margin-bottom: 150px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px),
+  (max-width: 767px) {
+  .ud-contact-title {
+    margin-bottom: 50px;
+  }
+}
+
+.ud-contact-title span {
+  color: var(--heading-color);
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+.ud-contact-title h2 {
+  font-weight: 600;
+  font-size: 35px;
+  line-height: 41px;
+}
+
+.ud-contact-info-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px),
+  (max-width: 767px) {
+  .ud-contact-info-wrapper {
+    margin-bottom: 50px;
+  }
+}
+
+.ud-contact-info-wrapper .ud-single-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 100%;
+  width: 330px;
+  margin-bottom: 30px;
+}
+
+.ud-contact-info-wrapper .ud-info-icon {
+  font-size: 32px;
+  color: var(--primary-color);
+  margin-right: 24px;
+}
+
+.ud-contact-info-wrapper .ud-info-meta h5 {
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.ud-contact-info-wrapper .ud-info-meta p {
+  font-size: 15px;
+  line-height: 24px;
+}
+
+.ud-contact-form-wrapper {
+  -webkit-box-shadow: 0px 4px 28px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 4px 28px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  background: var(--white);
+  padding: 60px;
+}
+
+@media (max-width: 767px) {
+  .ud-contact-form-wrapper {
+    padding: 40px 30px;
+  }
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1399px),
+  only screen and (min-width: 992px) and (max-width: 1199px),
+  only screen and (min-width: 576px) and (max-width: 767px) {
+  .ud-contact-form-wrapper {
+    padding: 50px 40px;
+  }
+}
+
+.ud-contact-form-wrapper .ud-contact-form-title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 767px) {
+  .ud-contact-form-wrapper .ud-contact-form-title {
+    font-size: 24px;
+  }
+}
+
+.ud-contact-form-wrapper .ud-form-group {
+  margin-bottom: 25px;
+}
+
+.ud-contact-form-wrapper .ud-form-group label {
+  display: block;
+  font-weight: normal;
+  font-size: 12px;
+}
+
+.ud-contact-form-wrapper .ud-form-group input,
+.ud-contact-form-wrapper .ud-form-group textarea {
+  display: block;
+  width: 100%;
+  padding: 15px 0;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #f1f1f1;
+  resize: none;
+}
+
+.ud-contact-form-wrapper .ud-form-group input:focus,
+.ud-contact-form-wrapper .ud-form-group textarea:focus {
+  border-color: var(--primary-color);
+}

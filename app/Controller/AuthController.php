@@ -10,12 +10,13 @@ class AuthController extends BaseController
 {
     public function getLogIn(Request $request, Response $response)
     {
-        return $this->view->render($response, 'login.twig');
+        $data['page']['title'] = 'Login';
+        return $this->view->render($response, 'login.twig', $data);
     }
 
     public function postLogIn(Request $request, Response $response)
     {
-        $redirect = $this->router->pathFor('home');
+        $redirect = $this->router->pathFor('user.dashboard');
 
         $validation = $this->validator->validate($request, [
             'username' => Valid::noWhitespace()->notEmpty(),

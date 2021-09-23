@@ -25,4 +25,9 @@ class Config
     {
         return $this->config['docs'];
     }
+    
+    public function getCustomUI()
+    {
+        return $this->config['custom_ui'];
+    }
 }

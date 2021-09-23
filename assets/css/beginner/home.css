@@ -1,0 +1,146 @@
+/* ===== Hero CSS ===== */
+.ud-hero {
+  background-image: url("../../images/beginner/cover.png");
+  height: 750px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-top: 180px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .ud-hero {
+    padding-top: 160px;
+  }
+}
+
+@media (max-width: 767px) {
+  .ud-hero {
+    padding-top: 130px;
+  }
+}
+
+.ud-hero-content {
+  max-width: 780px;
+  margin: auto;
+  margin-bottom: 30px;
+}
+
+.ud-hero-content .ud-hero-title {
+  color: var(--white);
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 50px;
+  text-align: center;
+  margin-top: 42%;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 4px #000000;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .ud-hero-content .ud-hero-title {
+    font-size: 38px;
+    line-height: 50px;
+  }
+}
+
+@media (max-width: 767px) {
+  .ud-hero-content .ud-hero-title {
+    font-size: 26px;
+    line-height: 38px;
+  }
+}
+
+/* ===== Features CSS ===== */
+.ud-features {
+  padding-top: 120px;
+  padding-bottom: 90px;
+}
+
+@media (max-width: 767px) {
+  .ud-features {
+    padding-top: 80px;
+    padding-bottom: 40px;
+  }
+}
+
+.ud-section-title {
+  max-width: 620px;
+  margin-bottom: 50px;
+}
+.ud-single-feature {
+  margin-bottom: 40px;
+}
+
+.ud-single-feature:hover .ud-feature-icon::before {
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.ud-single-feature .ud-feature-icon {
+  width: 70px;
+  height: 70px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: var(--primary-color);
+  font-size: 32px;
+  color: var(--white);
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.ud-single-feature .ud-feature-icon::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 14px;
+  background: var(--primary-color);
+  opacity: 0.2;
+  z-index: -1;
+  -webkit-transform: rotate(23deg);
+  transform: rotate(23deg);
+  -webkit-transition: all 0.3s ease-out 0s;
+  transition: all 0.3s ease-out 0s;
+}
+
+.ud-single-feature .ud-feature-title {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 28px;
+  margin-bottom: 12px;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .ud-single-feature .ud-feature-title {
+    font-size: 18px;
+    line-height: 26px;
+  }
+}
+
+.ud-single-feature .ud-feature-desc {
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 40px;
+}
+
+.ud-single-feature .ud-feature-link {
+  font-weight: 500;
+  color: var(--body-color);
+}
+
+.ud-single-feature .ud-feature-link:hover {
+  color: var(--primary-color);
+}
