@@ -541,7 +541,6 @@ p {
 /* ===== Footer CSS ===== */
 .ud-footer {
   background: var(--heading-color);
-  padding-top: 100px;
   position: relative;
   z-index: 1;
   overflow: hidden;
