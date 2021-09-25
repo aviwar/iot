@@ -7,12 +7,6 @@
     const sticky = ud_header.offsetTop;
     const logo = document.querySelector(".navbar-brand img");
 
-    // if (window.pageYOffset > sticky) {
-    //   ud_header.classList.add("sticky");
-    // } else {
-    //   ud_header.classList.remove("sticky");
-    // }
-
     // show or hide the back-top-top button
     const backToTop = document.querySelector(".back-to-top");
     if (

@@ -5,12 +5,16 @@
     <base href="{{base_url()}}/" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name='robots' content='noindex,follow' />
+
     <title>{{ appName }} - {{ page.title }}</title>
 
+    {% if customUI == 'trios' %}
     <link rel="shortcut icon" href="assets/images/favicon.png" />
+    {% endif %}
 
-    <meta name='robots' content='noindex,follow' />
-    <link rel="stylesheet" href="assets/css/packages.min.css">
+    <link rel="stylesheet" href="assets/css/packages.min.css?v1.1" media="print"
+        onload="this.media='all';this.onload = null;" />
     <link rel="stylesheet" href="assets/css/adminlte.min.css">
     <link rel="stylesheet" href="assets/css/style.min.css">
     {% block stylecontent %} {% endblock %}
@@ -47,7 +51,7 @@
         </div>
     </div>
 
-    <script src="assets/js/packages.min.js"></script>
+    <script src="assets/js/packages.min.js?v1.1"></script>
     <script src="assets/js/admin.packages.min.js"></script>
     <script>
         var dataTable;

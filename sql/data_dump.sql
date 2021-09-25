@@ -55,8 +55,9 @@ INSERT INTO `sensor_type` (`sensor_type_id`, `sensor_name`, `sensor_type`, `crea
 (34, 'PIR sensor', 'Digital', '2021-05-06 05:55:18', '2021-05-06 05:55:18'),
 (35, 'Tilt sensor', 'Digital', '2021-05-06 05:55:18', '2021-05-06 05:55:18'),
 (36, 'Proximity sensor', 'Digital', '2021-05-06 05:55:18', '2021-05-06 05:55:18'),
-(37, 'Metal Detector', 'Digital', '2021-05-06 05:55:18', '2021-05-06 05:55:18');
-
+(37, 'Metal Detector', 'Digital', '2021-05-06 05:55:18', '2021-05-06 05:55:18'),
+(38, 'Ultrasonic sensor', 'Analog', current_timestamp(), current_timestamp()),
+(39, 'Humidity sensor(dht11)', 'Analog', current_timestamp(), current_timestamp());
 -- --------------------------------------------------------
 
 --

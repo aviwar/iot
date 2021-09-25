@@ -37,6 +37,7 @@ $container['view'] = function ($container) {
 
     $view->getEnvironment()->addGlobal('sideMenu', $container['authenticator']->getSideMenu());
     $view->getEnvironment()->addGlobal('customUI', $container->get('settings')['custom_ui']);
+    $view->getEnvironment()->addGlobal('siteEnv', $container->get('settings')['env']);
 
     $view
         ->getEnvironment()

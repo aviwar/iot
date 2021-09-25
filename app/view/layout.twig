@@ -5,15 +5,31 @@
     <base href="{{base_url()}}/" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{{ appName }} - {{ page.title }}</title>
     <meta name="theme-color" content="#fff">
 
-    <!-- <link rel="shortcut icon" href="assets/images/favicon.png" /> -->
+    <title>{{ appName }} - {{ page.title }}</title>
 
-    <link rel="stylesheet" href="assets/css/packages.min.css">
-    <link rel="stylesheet" href="assets/css/{{customUI}}/custom.css">
+    {% if customUI == 'trios' %}
+    <link rel="shortcut icon" href="assets/images/favicon.png" />
+    {% endif %}
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet" href="assets/css/packages.min.css?v1.1" media="print"
+        onload="this.media='all';this.onload = null;" />
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    {% if siteEnv == 'prod' %}
+    <link rel="stylesheet" href="assets/css/{{customUI}}/custom-style.min.css?v1.1" media="print"
+        onload="this.media='all';this.onload = null;" />
+    {% else %}
+    <link rel="stylesheet" href="assets/css/{{customUI}}/custom.css" />
     {% block stylecontent %} {% endblock %}
+    {% endif %}
+
 </head>
 
 <body>
@@ -31,10 +47,13 @@
     </a>
     <!-- ====== Back To Top End ====== -->
 
-    <script src="assets/js/packages.min.js"></script>
+    <script src="assets/js/packages.min.js?v1.1"></script>
+    {% if siteEnv == 'prod' %}
+    <script src="assets/js/scroll.min.js"></script>
+    {% else %}
     <script src="assets/js/scroll.js"></script>
-
     {% block scriptcontent %}{% endblock %}
+    {% endif %}
 
     <script>
         // ==== for menu scroll

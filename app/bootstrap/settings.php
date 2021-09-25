@@ -2,6 +2,7 @@
 
 return [
     'settings' => [
+        'env' => 'dev',
         'displayErrorDetails' => true,
         'maintenanceMode' => false,
         'view' => [
@@ -24,5 +25,7 @@ return [
             'apiKey' => '',
             'senderId' => ''
         ],
+        'custom_ui' => 'trios',
+        // 'custom_ui' => 'beginner',
     ],
 ];
