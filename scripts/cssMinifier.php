@@ -11,10 +11,6 @@ $minifiedCSSFile = '';
 if ($customUI === 'trios') {
     $cssFiles = [
         '../assets/css/trios/custom.css',
-        '../assets/css/trios/home.css',
-        '../assets/css/trios/about.css',
-        '../assets/css/trios/contact.css',
-        '../assets/css/login.css',
     ];
 
     $minifiedCSSFile = '../assets/css/trios/custom-style.min.css';
@@ -22,8 +18,6 @@ if ($customUI === 'trios') {
 } elseif ($customUI === 'beginner') {
     $cssFiles = [
         '../assets/css/beginner/custom.css',
-        '../assets/css/beginner/home.css',
-        '../assets/css/login.css',
     ];
 
     $minifiedCSSFile = '../assets/css/beginner/custom-style.min.css';

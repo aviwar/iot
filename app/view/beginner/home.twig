@@ -1,110 +1,122 @@
 {% extends 'layout.twig' %}
 
-{% block stylecontent %}
-<link rel="stylesheet" href="assets/css/beginner/home.css">
-{% endblock %}
-
 {% block content %}
-<section class="ud-hero">
-    <img class="ud-hero-image" src="assets/images/beginner/cover.png" height="750" width="950" alt="Cover Image">
-    <div class="ud-hero-content">
-        <h1 class="ud-hero-title">
-            IF YOU THINK INTERNET CHANGED YOUR LIFE, THINK AGAIN.<br />
-            (IOT)<br />
-            THE INTERNET OF THINGS IS ABOUT TO CHANGE IT ALL OVER AGAIN.
-        </h1>
+<!--Hero content Start-->
+<header class="hero">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12 text-center">
+                <h1 class="hero-title">
+                    IF YOU THINK INTERNET CHANGED YOUR LIFE, THINK AGAIN.<br />
+                    (IOT)<br />
+                    THE INTERNET OF THINGS IS ABOUT TO CHANGE IT ALL OVER AGAIN.
+                </h1>
+            </div>
+        </div>
     </div>
-</section>
+</header>
+<!--Hero content End-->
 
-<section id="features" class="ud-features">
+<!-- Page Content -->
+<section class="py-5 features">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="ud-blog-details-title">
-                    <h1>What is IoT?</h1>
-                </div>
-                <p class="ud-blog-details-para">
-                    IoT makes once "dumb" devices "smarter" by giving them the ability to send data over the internet,
-                    allowing the device to communicate with people and other IoT-enabled things.
-                </p>
-                <p class="ud-blog-details-para">
-                    The connected "smart home" is a good example of IoT in action. Internet-enabled thermostats,
-                    doorbells, smoke detectors and security alarms create a connected hub where data is shared between
-                    physical devices and users can remotely control the "things" in that hub (i.e., adjusting
-                    temperature settings, unlocking doors, etc.) via a mobile app or website.
-                </p>
-                <p class="ud-blog-details-para">
-                    Far from being restricted to just the home, the Internet of Things can be found in an array of
-                    devices, industries and settings. From smart blackboards in school classrooms to medical devices
-                    that can detect signs of Parkinson's disease, IoT is rapidly making the world smarter by connecting
-                    the physical and the digital.
-                </p>
-            </div>
-        </div>
+        <h2 class="py-3 fw-light">What is IoT?</h2>
+        <p>
+            IoT makes once "dumb" devices "smarter" by giving them the ability to send data over the internet,
+            allowing the device to communicate with people and other IoT-enabled things.
+        </p>
+        <p>
+            The connected "smart home" is a good example of IoT in action. Internet-enabled thermostats,
+            doorbells, smoke detectors and security alarms create a connected hub where data is shared between
+            physical devices and users can remotely control the "things" in that hub (i.e., adjusting
+            temperature settings, unlocking doors, etc.) via a mobile app or website.
+        </p>
+        <p>
+            Far from being restricted to just the home, the Internet of Things can be found in an array of
+            devices, industries and settings. From smart blackboards in school classrooms to medical devices
+            that can detect signs of Parkinson's disease, IoT is rapidly making the world smarter by connecting
+            the physical and the digital.
+        </p>
 
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="ud-section-title">
-                    <h2>Features of Internet of Things (IoT)</h2>
-                </div>
-            </div>
-        </div>
+        <h3 class="py-3 fw-light">
+            Features of Internet of Things (IoT)
+        </h3>
+
         <div class="row">
             <div class="col-xl-4 col-lg-6 col-sm-12">
-                <div class="ud-single-feature">
-                    <div class="ud-feature-icon">
-                        <i class="fab fa-connectdevelop"></i>
+                <div class="single-feature">
+                    <div class="feature-icon">
+                        <i class="icon-connectdevelop"></i>
                     </div>
-                    <div class="ud-feature-content">
-                        <h3 class="ud-feature-title">Connectivity</h3>
-                        <p class="ud-feature-desc">
-                            In the case of IoT, the most important feature one can consider is connectivity. Without
+                    <div class="feature-content">
+                        <h3 class="feature-title">Connectivity</h3>
+                        <p class="feature-desc">
+                            In the case of IoT, the most important feature one can consider is connectivity.
+                            Without
                             seamless communication among the interrelated components of the IoT ecosystems (i.e.
-                            sensors, compute engines, data hubs, etc.) it is not possible to execute any proper business
-                            use case. IoT devices can be connected over Radio waves, Bluetooth, Wi-Fi, Li-Fi, etc. We
+                            sensors, compute engines, data hubs, etc.) it is not possible to execute any proper
+                            business
+                            use case. IoT devices can be connected over Radio waves, Bluetooth, Wi-Fi, Li-Fi,
+                            etc. We
                             can leverage various protocols of internet connectivity layers in order to maximize
-                            efficiency and establish generic connectivity across IoT ecosystems and Industry. There may
+                            efficiency and establish generic connectivity across IoT ecosystems and Industry.
+                            There may
                             be special cases where the IoT ecosystem is built on-premises or in an intranet.
                         </p>
                     </div>
                 </div>
             </div>
             <div class="col-xl-4 col-lg-6 col-sm-12">
-                <div class="ud-single-feature">
-                    <div class="ud-feature-icon">
-                        <i class="far fa-eye"></i>
+                <div class="single-feature">
+                    <div class="feature-icon">
+                        <i class="icon-eye"></i>
                     </div>
-                    <div class="ud-feature-content">
-                        <h3 class="ud-feature-title">Sensing</h3>
-                        <p class="ud-feature-desc">
-                            We humans can naturally understand and analyze our circumstances easily based on our past
-                            experiences with various things or situations. In the case of IoT in order to get the best
-                            of it, we need to read the analog signal, convert it in such a way that we can derive
-                            meaningful insights out of it. We use Electrochemical, gyroscope, pressure, light sensors,
-                            GPS, Electrochemical, pressure, RFID, etc. to gather data based on a particular problem. For
-                            example for automotive use cases, we use Light detection sensors along with pressure,
-                            velocity and imagery sensors. To make a use case successful we need to choose the proper
+                    <div class="feature-content">
+                        <h3 class="feature-title">Sensing</h3>
+                        <p class="feature-desc">
+                            We humans can naturally understand and analyze our circumstances easily based on our
+                            past
+                            experiences with various things or situations. In the case of IoT in order to get
+                            the best
+                            of it, we need to read the analog signal, convert it in such a way that we can
+                            derive
+                            meaningful insights out of it. We use Electrochemical, gyroscope, pressure, light
+                            sensors,
+                            GPS, Electrochemical, pressure, RFID, etc. to gather data based on a particular
+                            problem. For
+                            example for automotive use cases, we use Light detection sensors along with
+                            pressure,
+                            velocity and imagery sensors. To make a use case successful we need to choose the
+                            proper
                             sensing paradigm.
                         </p>
                     </div>
                 </div>
             </div>
             <div class="col-xl-4 col-lg-6 col-sm-12">
-                <div class="ud-single-feature">
-                    <div class="ud-feature-icon">
-                        <i class="fas fa-network-wired"></i>
+                <div class="single-feature">
+                    <div class="feature-icon">
+                        <i class="icon-sitemap"></i>
                     </div>
-                    <div class="ud-feature-content">
-                        <h3 class="ud-feature-title">Active Engagements</h3>
-                        <p class="ud-feature-desc">
-                            IoT device connects various products, cross-platform technologies and services work together
-                            by establishing an active engagement between them. In general, we use cloud computing in
-                            block chain to establish active engagements among IoT components. In the case of Industry
-                            grade, IoT solutions raw analog data need to be acquired, preprocessed and rescale as per
-                            business capacity. As per Google, only 50% of structured and 1% of unstructured data is used
-                            to make important business decisions. So while designing the IoT ecosystems carriers need to
-                            consider the future needs of manipulating such a huge scale of data to satisfy incremental
-                            business needs. One can confuse the need of active engagements with scale; practically it
+                    <div class="feature-content">
+                        <h3 class="feature-title">Active Engagements</h3>
+                        <p class="feature-desc">
+                            IoT device connects various products, cross-platform technologies and services work
+                            together
+                            by establishing an active engagement between them. In general, we use cloud
+                            computing in
+                            block chain to establish active engagements among IoT components. In the case of
+                            Industry
+                            grade, IoT solutions raw analog data need to be acquired, preprocessed and rescale
+                            as per
+                            business capacity. As per Google, only 50% of structured and 1% of unstructured data
+                            is used
+                            to make important business decisions. So while designing the IoT ecosystems carriers
+                            need to
+                            consider the future needs of manipulating such a huge scale of data to satisfy
+                            incremental
+                            business needs. One can confuse the need of active engagements with scale;
+                            practically it
                             means your systems should be able to handle huge data across various technologies,
                             platforms, products, and industries.
                         </p>
@@ -112,39 +124,44 @@
                 </div>
             </div>
             <div class="col-xl-4 col-lg-6 col-sm-12">
-                <div class="ud-single-feature">
-                    <div class="ud-feature-icon">
-                        <i class="fab fa-cloudscale"></i>
+                <div class="single-feature">
+                    <div class="feature-icon">
+                        <i class="icon-mixcloud"></i>
                     </div>
-                    <div class="ud-feature-content">
-                        <h3 class="ud-feature-title">Scale</h3>
-                        <p class="ud-feature-desc">
-                            IoT devices should be designed in such a way that they can be scaled up or down easily on
+                    <div class="feature-content">
+                        <h3 class="feature-title">Scale</h3>
+                        <p class="feature-desc">
+                            IoT devices should be designed in such a way that they can be scaled up or down
+                            easily on
                             demand. In general, IoT is being used from smart home automation to automating large
-                            factories and work stations, so the use cases vary in scale. A carrier should design their
+                            factories and work stations, so the use cases vary in scale. A carrier should design
+                            their
                             IoT infrastructure depending upon their current and future engagement scale.
                         </p>
                     </div>
                 </div>
             </div>
             <div class="col-xl-4 col-lg-6 col-sm-12">
-                <div class="ud-single-feature">
-                    <div class="ud-feature-icon">
-                        <i class="far fa-snowflake"></i>
+                <div class="single-feature">
+                    <div class="feature-icon">
+                        <i class="icon-snowflake-o"></i>
                     </div>
-                    <div class="ud-feature-content">
-                        <h3 class="ud-feature-title">Dynamic Nature</h3>
-                        <p class="ud-feature-desc">
-                            For any IoT use case, the first and foremost step is to collecting and converting data in
-                            such a way that means business decisions can be made out of it. In this whole process,
-                            various components of IoT need to change their state dynamically. For example, the input of
-                            a temperature sensor will vary continuously based on weather conditions, locations, etc. IoT
+                    <div class="feature-content">
+                        <h3 class="feature-title">Dynamic Nature</h3>
+                        <p class="feature-desc">
+                            For any IoT use case, the first and foremost step is to collecting and converting
+                            data in
+                            such a way that means business decisions can be made out of it. In this whole
+                            process,
+                            various components of IoT need to change their state dynamically. For example, the
+                            input of
+                            a temperature sensor will vary continuously based on weather conditions, locations,
+                            etc. IoT
                             devices should be designed this keeping in mind.
                         </p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </section>
 {% endblock %}

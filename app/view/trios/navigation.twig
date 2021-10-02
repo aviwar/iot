@@ -1,50 +1,31 @@
-<header class="ud-header sticky">
+<!--Navbar Start-->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-border">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <nav class="navbar navbar-expand-lg">
-                    <a class="navbar-brand" href="{{ path_for('home') }}" title="Go to IOT Home">
-                        <img src="assets/images/logo.png" alt="Trios IOT Logo" height="76" width="76" />
-                    </a>
-                    <button class="navbar-toggler">
-                        <span class="toggler-icon"> </span>
-                        <span class="toggler-icon"> </span>
-                        <span class="toggler-icon"> </span>
-                    </button>
+        <a href="{{ path_for('home') }}" class="navbar-brand" title="Go to IOT Home">
+            <img src="assets/images/logo.png" alt="Brand Logo" height="76" width="76">
+        </a>
 
-                    <div class="navbar-collapse">
-                        <ul id="nav" class="navbar-nav mx-auto">
-                            <li class="nav-item">
-                                <a href="{{ path_for('about') }}" title="Go to About us Page">About us</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ path_for('contact') }}" title="Go to Contact us Page">Contact us</a>
-                            </li>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsingNavbar"
+            aria-controls="collapsingNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-                            {% if auth.check %}
+        <div class="collapse navbar-collapse" id="collapsingNavbar">
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="{{ path_for('home') }}" title="Go to Home Page">Home</a>
+                <a class="nav-link" href="{{ path_for('about') }}" title="Go to About us Page">About us</a>
+                <a class="nav-link" href="{{ path_for('contact') }}" title="Go to Contact us Page">Contact us</a>
 
-                            <li class="nav-item">
-                                <a href="{{ path_for('user.dashboard') }}" title="Go to User Dashboard">Dashboard</a>
-                            </li>
-                            {% endif %}
+                {% if auth.check %}
+                <a class="nav-link" href="{{ path_for('user.dashboard') }}" title="Go to User Dashboard">Dashboard</a>
+                <a href="{{ path_for('logout') }}" class="btn btn-primary">Logout</a>
+                {% else %}
+                <a href="{{ path_for('login') }}" class="btn btn-primary" title="Go to Login Page">Sign In</a>
+                {% endif %}
 
-                        </ul>
-                    </div>
 
-                    <div class="navbar-btn d-sm-inline-block">
-                        {% if auth.check %}
-                        <a href="{{ path_for('logout') }}" class="ud-main-btn ud-white-btn">
-                            Logout
-                        </a>
-
-                        {% else %}
-                        <a href="{{ path_for('login') }}" class="ud-main-btn ud-white-btn" title="Go to Login Page">
-                            Sign In
-                        </a>
-                        {% endif %}
-                    </div>
-                </nav>
             </div>
         </div>
     </div>
-</header>
+</nav>
+<!--Navbar End-->

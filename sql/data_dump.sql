@@ -1,20 +1,4 @@
 --
--- Dumping data for table `menu`
---
-
-INSERT INTO `menu` (`menu_id`, `menu_name`, `menu_icon`, `menu_url`, `menu_order`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Dashboard', 'fas fa-tachometer-alt', 'user.dashboard', 1, 1, '2021-09-15 15:30:25', '2021-09-18 13:12:03'),
-(2, 'Title Update', 'far fa-edit', 'title', 2, 1, '2021-09-15 15:31:02', '2021-09-15 15:31:02'),
-(3, 'View IOT Data', 'fas fa-table', 'sensors', 3, 1, '2021-09-15 17:28:41', '2021-09-15 17:28:41'),
-(4, 'Mobile Number Update', 'fas fa-edit', 'mobile', 4, 1, '2021-09-15 17:28:41', '2021-09-15 17:28:41'),
-(5, 'Device Control', 'fas fa-tablet-alt', NULL, 5, 1, '2021-09-15 17:30:39', '2021-09-15 17:30:39'),
-(6, 'Location Details', 'fas fa-map-marker-alt', 'locations', 6, 1, '2021-09-15 17:30:39', '2021-09-15 17:30:39'),
-(7, 'Reset Sensor Data', 'fas fa-undo', 'reset', 7, 1, '2021-09-15 17:33:20', '2021-09-15 17:33:20'),
-(8, 'Settings', 'fas fa-cog', NULL, 8, 1, '2021-09-15 17:33:20', '2021-09-15 17:33:20');
-
--- --------------------------------------------------------
-
---
 -- Dumping data for table `sensor_type`
 --
 
@@ -61,15 +45,30 @@ INSERT INTO `sensor_type` (`sensor_type_id`, `sensor_name`, `sensor_type`, `crea
 -- --------------------------------------------------------
 
 --
+-- Dumping data for table `menu`
+--
+
+INSERT INTO `menu` (`menu_name`, `menu_icon`, `menu_url`, `menu_order`) VALUES
+('Dashboard', 'fas fa-tachometer-alt', 'user.dashboard', 1),
+('Title Update', 'far fa-edit', 'title', 2),
+('View IOT Data', 'fas fa-table', 'sensors', 3),
+('No. of sensors', 'far fa-circle', 'setting.sensor', 4),
+('No. of loads', 'far fa-circle', 'setting.device', 5),
+('Pin Selection', 'fa fa-lock', 'setting.sensorType', 6),
+('Code Download', 'fa fa-code', 'code', 7),
+('Mobile Number Update', 'fas fa-edit', 'mobile', 8),
+('Load Control', 'fas fa-tablet-alt', NULL, 9),
+('Location Details', 'fas fa-map-marker-alt', 'locations', 10),
+('Reset Sensor Data', 'fas fa-undo', 'reset', 11);
+
+-- --------------------------------------------------------
+
+--
 -- Dumping data for table `sub_menu`
 --
 
-INSERT INTO `sub_menu` (`submenu_id`, `menu_id`, `submenu_name`, `submenu_icon`, `submenu_url`, `submenu_order`, `status`, `created_at`, `updated_at`) VALUES
-(1, 5, 'Device On/Off Buttons', 'fa fa-toggle-on', 'device.switch', 1, 1, '2021-09-15 15:32:33', '2021-09-16 12:37:24'),
-(2, 5, 'Serial Data to Device', 'fa fa-paper-plane', 'device.serialData', 2, 1, '2021-09-15 15:38:47', '2021-09-16 12:39:32'),
-(3, 8, 'Sensors', 'far fa-circle', 'setting.sensor', 1, 1, '2021-09-15 17:49:54', '2021-09-15 17:49:54'),
-(4, 8, 'Devices', 'far fa-circle', 'setting.device', 2, 1, '2021-09-15 17:49:54', '2021-09-15 17:49:54'),
-(5, 8, 'Sensor Selection', 'far fa-circle', 'setting.sensorType', 3, 1, '2021-09-15 17:51:05', '2021-09-15 17:51:05'),
-(6, 8, 'Code', 'fa fa-code', 'code', 4, 1, '2021-09-15 17:51:05', '2021-09-16 12:36:50');
+INSERT INTO `sub_menu` (`menu_id`, `submenu_name`, `submenu_icon`, `submenu_url`, `submenu_order`) VALUES
+(9, 'Load On/Off Buttons', 'fa fa-toggle-on', 'device.switch', 1),
+(9, 'Serial Data to Device', 'fa fa-paper-plane', 'device.serialData', 2);
 
 -- --------------------------------------------------------
