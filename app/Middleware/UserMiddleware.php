@@ -1,8 +1,11 @@
 <?php
+
 namespace Iot\Middleware;
 
-class UserMiddleware extends Middleware {
-    public function __invoke($request, $response, $next) {
+class UserMiddleware extends Middleware
+{
+    public function __invoke($request, $response, $next)
+    {
         if ($this->container->authenticator->checkAuth() === false) {
             return $response->withRedirect($this->container->router->pathFor('login'));
         }

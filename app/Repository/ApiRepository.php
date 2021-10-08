@@ -1,4 +1,5 @@
 <?php
+
 namespace Iot\Repository;
 
 use Iot\Util\Db;

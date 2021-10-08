@@ -2,24 +2,6 @@
 
 buildMultipleUserQuery();
 
-// $dbConn = getDBConnection();
-
-/*function getDBConnection() {
-    $host = 'localhost';
-    $username = 'root';
-    $password = '';
-    $dbName = 'iot';
-
-    try {
-        $dns = sprintf('mysql:host=%s;dbname=%s', $host, $dbName);
-        return new PDO($dns, $username, $password);
-    }
-    catch (\PDOException $e) {
-        die("<strong>Error: </strong>could not connect to database");
-        // throw new \Exception($e->getMessage());
-    }
-}*/
-
 function buildMultipleUserQuery()
 {
     $query = 'INSERT INTO `user` (username, password) VALUES';

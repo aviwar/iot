@@ -156,7 +156,6 @@ class ApiController extends BaseController
         }
 
         $data['userId'] = $request->getAttribute('userId');
-        // $data['address'] = $this->getAddress($data['latitude'], $data['longitude']);
         $this->logger->log('Location data: ' . json_encode($data));
 
         $locationId = $this->apiRepository->addLocationData($data);
@@ -168,27 +167,6 @@ class ApiController extends BaseController
         $responseData['message'] = 'Location data added!';
 
         return $response->withJson($responseData, 201);
-    }
-
-    private function getAddress($latitude, $longitude)
-    {
-        $url = 'http://maps.googleapis.com/maps/api/geocode/json';
-        $apiUrl = sprintf(
-            '%s?latlng=%s,%s&sensor=false',
-            $url,
-            $latitude,
-            $longitude
-        );
-
-        $json = @file_get_contents($apiUrl);
-        $data = json_decode($json);
-
-        $status = $data->status;
-        if ($status == 'OK') {
-            return $data->results[0]->formatted_address;
-        } else {
-            return null;
-        }
     }
 
     public function postResetData(Request $request, Response $response)

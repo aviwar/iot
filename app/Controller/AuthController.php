@@ -1,4 +1,5 @@
 <?php
+
 namespace Iot\Controller;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -38,7 +39,7 @@ class AuthController extends BaseController
 
         if ($user['is_active'] == '-1') {
             $redirect = $this->router->pathFor('user.changePassword');
-        }        
+        }
 
         return $response->withRedirect($redirect);
     }
@@ -81,11 +82,10 @@ class AuthController extends BaseController
         $status = $this->authRepository->updateUserPassword($userId, $password);
         if (!$status) {
             $this->flash->addMessage('error', 'Unable to update Password. Please try again later!.');
-            
         } else {
             $this->flash->addMessage('success', 'Password Changed!.');
         }
-        
+
         return $response->withRedirect($redirect);
     }
 

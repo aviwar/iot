@@ -1,4 +1,5 @@
 <?php
+
 namespace Iot\Controller;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -6,7 +7,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 class UserController extends BaseController
 {
-    
+
     public function dashboard(Request $request, Response $response)
     {
         $data['page']['title'] = 'Dashboard';
@@ -260,11 +261,10 @@ class UserController extends BaseController
         $data = $request->getParsedBody();
         $data['user_id'] = $request->getAttribute('userId');
         $data['is_published'] = 0;
-        
-        for ($i=1; $i<=8; $i++) {            
+
+        for ($i = 1; $i <= 8; $i++) {
             if ($data["sensor{$i}_name"] === '') {
                 $data["sensor{$i}_pin"] = '';
-                
             }
         }
 

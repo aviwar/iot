@@ -2,11 +2,14 @@
 
 namespace Iot\Middleware;
 
-class OldInputMiddleware extends Middleware {
-    public function __invoke($request, $response, $next) {
+class OldInputMiddleware extends Middleware
+{
+    public function __invoke($request, $response, $next)
+    {
         if (isset($_SESSION['old'])) {
             $this->container->view->getEnvironment()->addGlobal(
-                'old', $_SESSION['old']
+                'old',
+                $_SESSION['old']
             );
         }
 

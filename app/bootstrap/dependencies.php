@@ -42,7 +42,7 @@ $container['view'] = function ($container) {
     $view
         ->getEnvironment()
         ->addGlobal('appName', $container->get('settings')['app_name']);
-        
+
     $view->getEnvironment()->addGlobal('flash', $container->flash);
 
     return $view;

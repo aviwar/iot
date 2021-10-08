@@ -1,4 +1,5 @@
 <?php
+
 namespace Iot\Repository;
 
 use Iot\Util\Db;
@@ -194,17 +195,19 @@ class UserRepository
         return $query->execute($data);
     }
 
-    public function getMenuItems() {
+    public function getMenuItems()
+    {
         $sql = 'SELECT menu_id, menu_name, menu_icon, menu_url FROM menu WHERE status=1 ORDER BY menu_order ASC';
 
         $dbConn = $this->db->getConnection();
         $query = $dbConn->prepare($sql);
         $query->execute();
 
-        return $query->fetchAll(PDO::FETCH_ASSOC); 
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
-    
-    public function getSubMenuItems($menuId) {
+
+    public function getSubMenuItems($menuId)
+    {
         $sql = 'SELECT submenu_name, submenu_icon, submenu_url
             FROM sub_menu WHERE menu_id=:menuId AND status=1 ORDER BY submenu_order ASC';
 
@@ -213,6 +216,6 @@ class UserRepository
         $query->bindValue(':menuId', $menuId, PDO::PARAM_INT);
         $query->execute();
 
-        return $query->fetchAll(PDO::FETCH_ASSOC); 
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 }

@@ -7,8 +7,7 @@
         "slim/twig-view": "^2.1",
         "slim/flash": "^0.4.0",
         "respect/validation": "^2.0",
-        "phpmailer/phpmailer": "~6.1",
-        "delight-im/random": "^1.0"
+        "phpmailer/phpmailer": "~6.1"
     },
     "autoload": {
         "psr-4": {

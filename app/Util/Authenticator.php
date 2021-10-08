@@ -1,6 +1,6 @@
 <?php
+
 namespace Iot\Util;
-use Delight\Random\Random;
 
 class Authenticator
 {
@@ -51,7 +51,7 @@ class Authenticator
     public function setUserSessionData($user)
     {
         $userId = $user['user_id'];
-        $uniqId = $this->getRandomString(32);
+        $uniqId = $this->generateRandomString(32);
         $this->container->authRepository->updateUserAuthToken($userId, $uniqId);
 
         $_SESSION['user_id'] = $userId;
@@ -68,50 +68,58 @@ class Authenticator
         session_destroy();
     }
 
-    public function getRandomString($length = 16)
+    public function generateRandomString($length = 10)
     {
-        return Random::alphaHumanString($length);
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+
+        return $randomString;
     }
 
     public function getOTP()
     {
-        return Random::intBetween(100000, 999999);
+        return rand(100000, 999999);
     }
 
-    public function getSideMenu(){
+    public function getSideMenu()
+    {
         $sideMenu = [];
         $currentUrl = $_SERVER['REQUEST_URI'];
 
         $menuItems = $this->container->userRepository->getMenuItems();
-        foreach($menuItems as $key=>$item) {            
-            
+        foreach ($menuItems as $key => $item) {
+
             list($isActivePage, $subMenu) = $this->processSubMenuItems(
                 $this->container->userRepository->getSubMenuItems($item['menu_id']),
                 $currentUrl
-            );            
-            
+            );
+
             $menuURL = '#';
             if (empty($subMenu)) {
                 $menuURL = $this->container->router->pathFor($item['menu_url']);
             }
-            
+
             $isActivePage = ($currentUrl === $menuURL) ? true : $isActivePage;
 
             $sideMenu[$key] = $item;
             $sideMenu[$key]['menu_url'] = $menuURL;
             $sideMenu[$key]['subMenu'] = $subMenu;
             $sideMenu[$key]['isActivePage'] = $isActivePage;
-
         }
-        
+
         return $sideMenu;
     }
 
-    private function processSubMenuItems($subMenuItems, $currentUrl) {
+    private function processSubMenuItems($subMenuItems, $currentUrl)
+    {
         $subMenu = [];
         $isActiveMenu = false;
 
-        foreach($subMenuItems as $key=>$item) {
+        foreach ($subMenuItems as $key => $item) {
             $isActivePage = false;
             $subMenu[$key] = $item;
 
@@ -121,7 +129,7 @@ class Authenticator
                 $isActivePage = true;
                 $isActiveMenu = true;
             }
-            
+
             $subMenu[$key]['submenu_url'] = $subMenuURL;
             $subMenu[$key]['isActivePage'] = $isActivePage;
         }
@@ -130,6 +138,5 @@ class Authenticator
             $isActiveMenu,
             $subMenu,
         ];
-
     }
 }

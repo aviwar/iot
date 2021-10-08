@@ -14,7 +14,6 @@ if ($customUI === 'trios') {
     ];
 
     $minifiedCSSFile = '../assets/css/trios/custom-style.min.css';
-
 } elseif ($customUI === 'beginner') {
     $cssFiles = [
         '../assets/css/beginner/custom.css',
@@ -36,7 +35,7 @@ curl_setopt_array($ch, [
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_POST => true,
     CURLOPT_HTTPHEADER => ["Content-Type: application/x-www-form-urlencoded"],
-    CURLOPT_POSTFIELDS => http_build_query([ "input" => $cssContent ])
+    CURLOPT_POSTFIELDS => http_build_query(["input" => $cssContent])
 ]);
 
 $minifiedCSSContent = curl_exec($ch);

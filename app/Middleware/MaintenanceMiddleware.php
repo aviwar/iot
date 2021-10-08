@@ -1,12 +1,16 @@
 <?php
+
 namespace Iot\Middleware;
 
-Class MaintenanceMiddleware extends Middleware {
-    public function __invoke($request, $response, $next) {
+class MaintenanceMiddleware extends Middleware
+{
+    public function __invoke($request, $response, $next)
+    {
         $maintenanceMode = $this->container->get('settings')['maintenanceMode'];
-        if($maintenanceMode) {
+        if ($maintenanceMode) {
             return $this->container->view->render(
-                $response, 'maintenance.twig'
+                $response,
+                'maintenance.twig'
             );
         }
 

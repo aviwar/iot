@@ -1,4 +1,5 @@
 <?php
+
 namespace Iot\Controller;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -13,7 +14,7 @@ class UiController extends BaseController
 
         return $this->view->render($response, $customUI . '/home.twig', $data);
     }
-    
+
     public function learningBoardPage(Request $request, Response $response)
     {
         $customUI = $this->config->getCustomUI();

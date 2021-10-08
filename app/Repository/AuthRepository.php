@@ -1,4 +1,5 @@
 <?php
+
 namespace Iot\Repository;
 
 use Iot\Util\Db;
@@ -81,7 +82,7 @@ class AuthRepository
         $query->bindValue(':uniqId', $uniqId, PDO::PARAM_STR);
         $query->execute();
     }
-    
+
     public function updateUserPassword(int $userId, string $password)
     {
         $shaPassword = sha1($password);
@@ -93,7 +94,7 @@ class AuthRepository
         );
         $query->bindValue(':userId', $userId, PDO::PARAM_STR);
         $query->bindValue(':password', $shaPassword, PDO::PARAM_STR);
-        
+
         return $query->execute();
     }
 }
