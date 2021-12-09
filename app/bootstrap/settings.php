@@ -12,7 +12,7 @@ return [
             ]
         ],
         'app_log' => __DIR__ . '/../../logs/',
-		'app_name' => 'Iot',
+        'app_name' => 'Iot',
         'db' => [
             'host' => '127.0.0.1',
             'name' => 'iot',
@@ -23,7 +23,8 @@ return [
         'sms' => [
             'clientId' => '',
             'apiKey' => '',
-            'senderId' => ''
+            'senderId' => '',
+            'url' => ''
         ],
         'custom_ui' => 'trios',
         // 'custom_ui' => 'beginner',

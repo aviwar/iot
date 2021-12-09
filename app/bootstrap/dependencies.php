@@ -95,7 +95,8 @@ $container['sms'] = function ($container) {
     return new Sms(
         $settings['clientId'],
         $settings['apiKey'],
-        $settings['senderId']
+        $settings['senderId'],
+        $settings['url']
     );
 };
 
