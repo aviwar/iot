@@ -1,13 +1,16 @@
 <?php
+
 namespace Iot\Util;
 
 use Respect\Validation\Validator as Respect;
 use Respect\Validation\Exceptions\NestedValidationException;
 
-class Validator {
+class Validator
+{
     protected $errors;
 
-    public function validate($request, array $rules) {
+    public function validate($request, array $rules)
+    {
         foreach ($rules as $field => $rule) {
             try {
                 $rule->setName(ucfirst($field))->assert(
@@ -23,7 +26,8 @@ class Validator {
         return $this;
     }
 
-    public function failed() {
+    public function failed()
+    {
         return !empty($this->errors);
     }
 }

@@ -32,15 +32,13 @@ class Sms
                 'Message' => $message,
             ];
 
-            $headers = array(
-                "Content-Type: application/json",
-            );
+            $url = sprintf('%s?%s', $this->url, http_build_query($smsData));
 
-            $ch = curl_init($this->url);
-            curl_setopt($ch, CURLOPT_POST, true);
+            $headers = ["Content-Type: application/json"];
+
+            $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($smsData));
             $response = curl_exec($ch);
             curl_close($ch);
 

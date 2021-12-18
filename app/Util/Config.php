@@ -1,4 +1,5 @@
 <?php
+
 namespace Iot\Util;
 
 class Config
@@ -19,13 +20,12 @@ class Config
     {
         return $this->config['app_log'];
     }
-    
-    
+
     public function getDocsPath()
     {
         return $this->config['docs'];
     }
-    
+
     public function getCustomUI()
     {
         return $this->config['custom_ui'];

@@ -1,4 +1,5 @@
 <?php
+
 namespace Iot\Controller;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -40,7 +41,7 @@ class ApiController extends BaseController
         $message = '';
         for ($i = 1; $i <= 8; $i++) {
             $key = 'sensor' . $i;
-            $message .= "sensor $i $sensorData[$key] ";
+            $message .= "sensor $i $sensorData[$key]\n";
         }
 
         $smsResponse = $this->sms->sendSms($mobileNumbers, $message);
@@ -239,12 +240,11 @@ class ApiController extends BaseController
         } else {
             $fileName = 'Digital_sensor_code.txt';
         }
-        
-        echo htmlentities(file_get_contents($this->config->getDocsPath() . $fileName));        
+
+        echo htmlentities(file_get_contents($this->config->getDocsPath() . $fileName));
         exit;
     }
-    
-    
+
     public function downloadFile(Request $request, Response $response, $args)
     {
         $fileType = $args['fileName'];
@@ -256,11 +256,11 @@ class ApiController extends BaseController
         }
 
         $filePath = $this->config->getDocsPath() .  $fileName;
-        
+
         header('Content-Type: application/octet-stream');
-        header("Content-Transfer-Encoding: Binary"); 
-        header("Content-disposition: attachment; filename=\"" . basename($filePath) . "\""); 
-        readfile($filePath);        
+        header("Content-Transfer-Encoding: Binary");
+        header("Content-disposition: attachment; filename=\"" . basename($filePath) . "\"");
+        readfile($filePath);
         exit;
     }
 }
